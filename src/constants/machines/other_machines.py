@@ -1,11 +1,158 @@
 # Other machines (space cooling, refrigeration, laundry, lighting, etc.)
 
-ENERGY_NEEDS_SPACE_COOLING = 0.34  # kWh per day, Machines!D113
-ENERGY_NEEDS_OTHER_APPLIANCES = 4.05  # kWh per day, Machines!C2448  Lights (0.64), washing machine (0.25), dryer (0.11), other incl TVs/computers etc. (3.05)
-ENERGY_NEEDS_OTHER_COOKING = 2.85  # kWh per day, Machines!C228. Oven (0.47), microwave (0.25), refrigeration (1.88), dishwasher (0.24)
+from openapi_client.models.location_enum import LocationEnum
 
-ENERGY_NEEDS_OTHER_MACHINES_PER_DAY = (
-    ENERGY_NEEDS_SPACE_COOLING
-    + ENERGY_NEEDS_OTHER_APPLIANCES
-    + ENERGY_NEEDS_OTHER_COOKING
-)  # kWh per day
+# From 'Machines'!B43:L43
+ENERGY_NEEDS_SPACE_COOLING = {
+    LocationEnum.OTHER_TERRITORIES: {
+        "kwh_per_day": 0.94,
+    },
+    LocationEnum.VICTORIA: {
+        "kwh_per_day": 0.10,
+    },
+    LocationEnum.NEW_SOUTH_WALES: {
+        "kwh_per_day": 0.77,
+    },
+    LocationEnum.NORTHERN_TERRITORY: {
+        "kwh_per_day": 7.58,
+    },
+    LocationEnum.AUSTRALIAN_CAPITAL_TERRITORY: {
+        "kwh_per_day": 0.74,
+    },
+    LocationEnum.TASMANIA: {
+        "kwh_per_day": 0.09,
+    },
+    LocationEnum.WESTERN_AUSTRALIA: {
+        "kwh_per_day": 1.65,
+    },
+    LocationEnum.SOUTH_AUSTRALIA: {
+        "kwh_per_day": 0.63,
+    },
+    LocationEnum.QUEENSLAND: {
+        "kwh_per_day": 1.89,
+    },
+    LocationEnum.OVERSEAS: {
+        "kwh_per_day": 0,
+    },
+}
+
+# From 'Machines'!B349:L357
+# washer dryer + lighting + other appliances
+ENERGY_NEEDS_OTHER_APPLIANCES = {
+    LocationEnum.OTHER_TERRITORIES: {
+        "kwh_per_day": 5.21,
+    },
+    LocationEnum.VICTORIA: {
+        "kwh_per_day": 5.21,
+    },
+    LocationEnum.NEW_SOUTH_WALES: {
+        "kwh_per_day": 5.32,
+    },
+    LocationEnum.NORTHERN_TERRITORY: {
+        "kwh_per_day": 5.52,
+    },
+    LocationEnum.AUSTRALIAN_CAPITAL_TERRITORY: {
+        "kwh_per_day": 5.18,
+    },
+    LocationEnum.TASMANIA: {
+        "kwh_per_day": 5.21,
+    },
+    LocationEnum.WESTERN_AUSTRALIA: {
+        "kwh_per_day": 5.14,
+    },
+    LocationEnum.SOUTH_AUSTRALIA: {
+        "kwh_per_day": 5.21,
+    },
+    LocationEnum.QUEENSLAND: {
+        "kwh_per_day": 5.09,
+    },
+    LocationEnum.OVERSEAS: {
+        "kwh_per_day": 0,
+    },
+}
+
+# From 'Machines'!B349:L357 and 'Machines'!B232:L237
+# refrigeration + dishwasher + oven + microwave + uprights
+ENERGY_NEEDS_OTHER_COOKING = {
+    LocationEnum.OTHER_TERRITORIES: {
+        "kwh_per_day": 3.40,
+    },
+    LocationEnum.VICTORIA: {
+        "kwh_per_day": 3.32,
+    },
+    LocationEnum.NEW_SOUTH_WALES: {
+        "kwh_per_day": 3.40,
+    },
+    LocationEnum.NORTHERN_TERRITORY: {
+        "kwh_per_day": 3.57,
+    },
+    LocationEnum.AUSTRALIAN_CAPITAL_TERRITORY: {
+        "kwh_per_day": 3.20,
+    },
+    LocationEnum.TASMANIA: {
+        "kwh_per_day": 3.65,
+    },
+    LocationEnum.WESTERN_AUSTRALIA: {
+        "kwh_per_day": 3.47,
+    },
+    LocationEnum.SOUTH_AUSTRALIA: {
+        "kwh_per_day": 3.62,
+    },
+    LocationEnum.QUEENSLAND: {
+        "kwh_per_day": 3.35,
+    },
+    LocationEnum.OVERSEAS: {
+        "kwh_per_day": 0,
+    },
+}
+
+# From 'Machines'!B356:L357 and 'Machines'!B232:L237
+# pool equipment electric + pool equipment natural gas
+ENERGY_NEEDS_POOL_EQUIPMENT = {
+    LocationEnum.OTHER_TERRITORIES: {
+        "kwh_per_day": 0.92,
+    },
+    LocationEnum.VICTORIA: {
+        "kwh_per_day": 0.48,
+    },
+    LocationEnum.NEW_SOUTH_WALES: {
+        "kwh_per_day": 1.01,
+    },
+    LocationEnum.NORTHERN_TERRITORY: {
+        "kwh_per_day": 2.0,
+    },
+    LocationEnum.AUSTRALIAN_CAPITAL_TERRITORY: {
+        "kwh_per_day": 0.33,
+    },
+    LocationEnum.TASMANIA: {
+        "kwh_per_day": 0.34,
+    },
+    LocationEnum.WESTERN_AUSTRALIA: {
+        "kwh_per_day": 1.20,
+    },
+    LocationEnum.SOUTH_AUSTRALIA: {
+        "kwh_per_day": 0.67,
+    },
+    LocationEnum.QUEENSLAND: {
+        "kwh_per_day": 1.37,
+    },
+    LocationEnum.OVERSEAS: {
+        "kwh_per_day": 0,
+    },
+}
+
+
+
+ENERGY_NEEDS_OTHER_MACHINES_PER_DAY = {}
+
+for location in LocationEnum:
+    total_kwh = (
+        ENERGY_NEEDS_SPACE_COOLING.get(location, {}).get("kwh_per_day", 0) +
+        ENERGY_NEEDS_OTHER_APPLIANCES.get(location, {}).get("kwh_per_day", 0) +
+        ENERGY_NEEDS_OTHER_COOKING.get(location, {}).get("kwh_per_day", 0) +
+        ENERGY_NEEDS_POOL_EQUIPMENT.get(location, {}).get("kwh_per_day", 0)
+    )
+
+    ENERGY_NEEDS_OTHER_MACHINES_PER_DAY[location] = {
+        "kwh_per_day": total_kwh
+    }
