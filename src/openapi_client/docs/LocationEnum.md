@@ -4,55 +4,25 @@ Where the household is located
 
 ## Enum
 
-* `NORTHLAND` (value: `'NORTHLAND'`)
+* `OTHER_TERRITORIES` (value: `'OTHER_TERRITORIES'`)
 
-* `AUCKLAND_NORTH` (value: `'AUCKLAND_NORTH'`)
+* `VICTORIA` (value: `'VICTORIA'`)
 
-* `AUCKLAND_CENTRAL` (value: `'AUCKLAND_CENTRAL'`)
+* `NEW_SOUTH_WALES` (value: `'NEW_SOUTH_WALES'`)
 
-* `AUCKLAND_EAST` (value: `'AUCKLAND_EAST'`)
+* `NORTHERN_TERRITORY` (value: `'NORTHERN_TERRITORY'`)
 
-* `AUCKLAND_WEST` (value: `'AUCKLAND_WEST'`)
+* `AUSTRALIAN_CAPITAL_TERRITORY` (value: `'AUSTRALIAN_CAPITAL_TERRITORY'`)
 
-* `AUCKLAND_SOUTH` (value: `'AUCKLAND_SOUTH'`)
+* `TASMANIA` (value: `'TASMANIA'`)
 
-* `WAIKATO` (value: `'WAIKATO'`)
+* `WESTERN_AUSTRALIA` (value: `'WESTERN_AUSTRALIA'`)
 
-* `BAY_OF_PLENTY` (value: `'BAY_OF_PLENTY'`)
+* `SOUTH_AUSTRALIA` (value: `'SOUTH_AUSTRALIA'`)
 
-* `GISBORNE` (value: `'GISBORNE'`)
-
-* `HAWKES_BAY` (value: `'HAWKES_BAY'`)
-
-* `TARANAKI` (value: `'TARANAKI'`)
-
-* `MANAWATU_WANGANUI` (value: `'MANAWATU_WANGANUI'`)
-
-* `WELLINGTON` (value: `'WELLINGTON'`)
-
-* `TASMAN` (value: `'TASMAN'`)
-
-* `NELSON` (value: `'NELSON'`)
-
-* `MARLBOROUGH` (value: `'MARLBOROUGH'`)
-
-* `WEST_COAST` (value: `'WEST_COAST'`)
-
-* `CANTERBURY` (value: `'CANTERBURY'`)
-
-* `OTAGO` (value: `'OTAGO'`)
-
-* `SOUTHLAND` (value: `'SOUTHLAND'`)
-
-* `STEWART_ISLAND` (value: `'STEWART_ISLAND'`)
-
-* `CHATHAM_ISLANDS` (value: `'CHATHAM_ISLANDS'`)
-
-* `GREAT_BARRIER_ISLAND` (value: `'GREAT_BARRIER_ISLAND'`)
+* `QUEENSLAND` (value: `'QUEENSLAND'`)
 
 * `OVERSEAS` (value: `'OVERSEAS'`)
-
-* `OTHER` (value: `'OTHER'`)
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

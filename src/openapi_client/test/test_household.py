@@ -36,7 +36,7 @@ class TestHousehold(unittest.TestCase):
         model = Household()  # noqa: E501
         if include_optional:
             return Household(
-                location = 'NORTHLAND',
+                location = 'OTHER_TERRITORIES',
                 occupancy = 2,
                 space_heating = 'WOOD',
                 water_heating = 'GAS',

@@ -214,31 +214,16 @@ components:
       type: string
       description: Where the household is located
       enum:
-        - NORTHLAND
-        - AUCKLAND_NORTH
-        - AUCKLAND_CENTRAL
-        - AUCKLAND_EAST
-        - AUCKLAND_WEST
-        - AUCKLAND_SOUTH
-        - WAIKATO
-        - BAY_OF_PLENTY
-        - GISBORNE
-        - HAWKES_BAY
-        - TARANAKI
-        - MANAWATU_WANGANUI
-        - WELLINGTON
-        - TASMAN
-        - NELSON
-        - MARLBOROUGH
-        - WEST_COAST
-        - CANTERBURY
-        - OTAGO
-        - SOUTHLAND
-        - STEWART_ISLAND
-        - CHATHAM_ISLANDS
-        - GREAT_BARRIER_ISLAND
+        - OTHER_TERRITORIES
+        - VICTORIA
+        - NEW_SOUTH_WALES
+        - NORTHERN_TERRITORY
+        - AUSTRALIAN_CAPITAL_TERRITORY
+        - TASMANIA
+        - WESTERN_AUSTRALIA
+        - SOUTH_AUSTRALIA
+        - QUEENSLAND
         - OVERSEAS
-        - OTHER
     SpaceHeatingEnum:
       description: The main method of space heating
       type: string

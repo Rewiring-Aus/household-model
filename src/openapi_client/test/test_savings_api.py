@@ -24,7 +24,7 @@ class TestSavingsApi(unittest.TestCase):
         self.api = SavingsApi()
 
     def tearDown(self) -> None:
-        pass
+        self.api.api_client.close()
 
     def test_calculate_savings(self) -> None:
         """Test case for calculate_savings
