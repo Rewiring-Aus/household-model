@@ -14,7 +14,6 @@ from constants.machines.vehicles import (
 )
 from constants.utils import PeriodEnum
 from openapi_client.models.location_enum import LocationEnum
-from savings.energy.scale_energy_by_location import scale_energy_by_location
 from savings.energy.scale_energy_by_occupancy import scale_energy_by_occupancy
 from utils.scale_daily_to_period import scale_daily_to_period
 
@@ -76,10 +75,6 @@ def get_energy_per_day(
             raise ValueError(f"Can not find fuel type value for {machine_type}")
 
         e_daily_scaled = scale_energy_by_occupancy(e_daily, occupancy)
-        e_daily_scaled = scale_energy_by_location(
-            machine_type, e_daily_scaled, location
-        )
-
         e_fuel_type[fuel_type] = e_daily_scaled
 
     return e_fuel_type
