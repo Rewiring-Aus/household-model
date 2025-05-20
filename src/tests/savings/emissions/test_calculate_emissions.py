@@ -16,13 +16,13 @@ class TestCalculateEmissions(unittest.TestCase):
         }.get(period, 0.0)
     )
 
-    get_vehicle_emissions_side_effect = lambda self, vehicles, period: {
+    get_vehicle_emissions_side_effect = lambda self, vehicles, location, period : {
         PeriodEnum.WEEKLY: 2.0,
         PeriodEnum.YEARLY: 104.0,
         PeriodEnum.OPERATIONAL_LIFETIME: 7000.0,
     }.get(period, 0.0)
 
-    get_other_emissions_side_effect = lambda self, occupancy, period: {
+    get_other_emissions_side_effect = lambda self, location, occupancy, period : {
         PeriodEnum.WEEKLY: 0.5,
         PeriodEnum.YEARLY: 26.5,
         PeriodEnum.OPERATIONAL_LIFETIME: 2000.0,
@@ -61,28 +61,22 @@ class TestCalculateEmissions(unittest.TestCase):
     def test_calculate_emissions_real_values(self):
         result = calculate_emissions(mock_household, mock_household_electrified)
         occupancy_multiplier = 1.07
-        location_multiplier = 0.6315723935
+
         before = {
-            "space_heating_wood": 14.44
-            * 0.016
-            * occupancy_multiplier
-            * location_multiplier,
-            "water_heating_gas": 6.6 * 0.201 * occupancy_multiplier,
-            "cooktop_resistance": 0.83 * 0.074 * occupancy_multiplier,
-            "petrol_car": 31.4 * 0.258 * (250 / 210),
-            "diesel_car": 22.8 * 0.253 * (50 / 210),
-            "other": (0.34 + 4.05 + 2.85) * 0.074 * occupancy_multiplier,
+            "space_heating_wood": 13.99 * 0.40 * occupancy_multiplier,
+            "water_heating_gas": 7.69 * 0.19 * occupancy_multiplier,
+            "cooktop_resistance": 0.95 * 0.79 * occupancy_multiplier,
+            "petrol_car": 36.7 * 0.24 * (250 / (36.2 * 7)),
+            "diesel_car": 29 * 0.25 * (50 / (36.2 * 7)),
+            "other": (0.77 + 5.32 + 3.40 + 1.01) * 0.79 * occupancy_multiplier,
         }
         after = {
-            "space_heating_heat_pump": 2.3
-            * 0.074
-            * occupancy_multiplier
-            * location_multiplier,
-            "water_heating_heat_pump": 1.71 * 0.074 * occupancy_multiplier,
-            "cooktop_resistance": 0.83 * 0.074 * occupancy_multiplier,  # didn't swap
-            "ev_car": 7.324 * 0.074 * (250 / 210),
-            "diesel_car": 22.8 * 0.253 * (50 / 210),  # didn't want to switch
-            "other": (0.34 + 4.05 + 2.85) * 0.074 * occupancy_multiplier,
+            "space_heating_heat_pump": 2.273 * 0.79 * occupancy_multiplier,
+            "water_heating_heat_pump": 1.76 * 0.79 * occupancy_multiplier,
+            "cooktop_resistance": 0.95 * 0.79 * occupancy_multiplier,  # didn't swap
+            "ev_car": 9.4 * 0.79 * (250 / (36.2 * 7)),
+            "diesel_car": 29 * 0.25 * (50 / (36.2 * 7)),  # didn't want to switch
+            "other": (0.77 + 5.32 + 3.40 + 1.01) * 0.79 * occupancy_multiplier,
         }
         before_daily = sum(before.values())
         after_daily = sum(after.values())
