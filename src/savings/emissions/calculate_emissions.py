@@ -73,8 +73,8 @@ def _get_total_emissions(
     location: LocationEnum,
 ):
     appliance_emissions = _get_total_appliance_emissions(household, period, location)
-    vehicle_emissions = get_vehicle_emissions(household.vehicles, period)
-    other_emissions = get_other_appliance_emissions(household.occupancy, period)
+    vehicle_emissions = get_vehicle_emissions(household.vehicles, location, period)
+    other_emissions = get_other_appliance_emissions(location, household.occupancy, period)
     return appliance_emissions + vehicle_emissions + other_emissions
 
 

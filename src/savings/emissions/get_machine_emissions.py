@@ -1,6 +1,5 @@
 from typing import List, Optional
 
-from constants.machines.space_heating import SPACE_HEATING_ENERGY_LOCATION_MULTIPLIER
 from openapi_client.models.location_enum import LocationEnum
 from openapi_client.models.space_heating_enum import SpaceHeatingEnum
 from openapi_client.models.vehicle import Vehicle
@@ -14,7 +13,6 @@ from constants.machines.vehicles import (
     VEHICLE_INFO,
 )
 from constants.utils import PeriodEnum
-from savings.energy.scale_energy_by_location import scale_energy_by_location
 from savings.energy.scale_energy_by_occupancy import scale_energy_by_occupancy
 from utils.scale_daily_to_period import scale_daily_to_period
 
@@ -22,8 +20,8 @@ from utils.scale_daily_to_period import scale_daily_to_period
 def get_emissions_per_day(
     machine_type: MachineEnum,
     machine_stats_map: MachineInfoMap,
+    location: LocationEnum,
     occupancy: Optional[int] = None,
-    location: Optional[LocationEnum] = None,
 ) -> float:
     """Get emissions per day based on machine's energy use per day and emissions factor for fuel type
 
@@ -37,12 +35,15 @@ def get_emissions_per_day(
         float: machine's emissions in kgCO2e per day
     """
     # TODO: Use get_energy_per_day() for calculating energy, then just multiply by emissions factor
-    energy = machine_stats_map[machine_type]["kwh_per_day"]
+    energy = machine_stats_map[machine_type]["per_location"][location]["kwh_per_day"]
     fuel_type = machine_stats_map[machine_type]["fuel_type"]
     energy_scaled = scale_energy_by_occupancy(energy, occupancy)
-    energy_scaled = scale_energy_by_location(machine_type, energy_scaled, location)
 
-    emissions = energy_scaled * EMISSIONS_FACTORS[fuel_type]
+
+    if fuel_type == FuelTypeEnum.ELECTRICITY:
+        emissions = energy_scaled * EMISSIONS_FACTORS[fuel_type][location]
+    else:
+        emissions = energy_scaled * EMISSIONS_FACTORS[fuel_type]
     return emissions
 
 
@@ -66,13 +67,15 @@ def get_appliance_emissions(
         float: kgCO2e emitted from appliance over given period
     """
     emissions_daily = get_emissions_per_day(
-        appliance, appliance_info, occupancy, location
+        appliance, appliance_info, location, occupancy
     )
     return scale_daily_to_period(emissions_daily, period)
 
 
 def get_other_appliance_emissions(
-    occupancy: Optional[int] = None, period: PeriodEnum = PeriodEnum.DAILY
+    location: LocationEnum,
+    occupancy: Optional[int] = None,
+    period: PeriodEnum = PeriodEnum.DAILY,
 ) -> float:
     """Calculates the emissions of other appliances in a household
     These may include space cooling (fans, aircon), refrigeration, laundry, lighting, etc.
@@ -86,14 +89,16 @@ def get_other_appliance_emissions(
         float: kgCO2e emitted from other appliances over given period
     """
     energy_scaled = scale_energy_by_occupancy(
-        ENERGY_NEEDS_OTHER_MACHINES_PER_DAY, occupancy
+        ENERGY_NEEDS_OTHER_MACHINES_PER_DAY[location]["kwh_per_day"], occupancy
     )
-    emissions_daily = energy_scaled * EMISSIONS_FACTORS[FuelTypeEnum.ELECTRICITY]
+    emissions_daily = energy_scaled * EMISSIONS_FACTORS[FuelTypeEnum.ELECTRICITY][location]
     return scale_daily_to_period(emissions_daily, period)
 
 
 def get_vehicle_emissions(
-    vehicles: List[Vehicle], period: PeriodEnum = PeriodEnum.DAILY
+    vehicles: List[Vehicle],
+    location: LocationEnum,
+    period: PeriodEnum = PeriodEnum.DAILY,
 ) -> float:
     """Calculates the emissions of a list of vehicles
 
@@ -110,15 +115,16 @@ def get_vehicle_emissions(
             VehicleFuelTypeEnum.PLUG_IN_HYBRID,
             VehicleFuelTypeEnum.HYBRID,
         ]:
-            avg_emissions_daily = _get_hybrid_emissions_per_day(vehicle.fuel_type)
+            avg_emissions_daily = _get_hybrid_emissions_per_day(vehicle.fuel_type, location)
         else:
             avg_emissions_daily = get_emissions_per_day(
                 vehicle.fuel_type,
                 VEHICLE_INFO,
+                location
             )
 
         # Weight the emissions based on how much they use the vehicle compared to average
-        weighting_factor = vehicle.kms_per_week / VEHICLE_AVG_KMS_PER_WEEK
+        weighting_factor = vehicle.kms_per_week / VEHICLE_AVG_KMS_PER_WEEK[location]
         weighted_emissions_daily = avg_emissions_daily * weighting_factor
 
         # Convert to given period
@@ -129,14 +135,16 @@ def get_vehicle_emissions(
     return total_emissions
 
 
-def _get_hybrid_emissions_per_day(vehicle_type: VehicleFuelTypeEnum) -> float:
+def _get_hybrid_emissions_per_day(vehicle_type: VehicleFuelTypeEnum, location: LocationEnum) -> float:
     petrol = get_emissions_per_day(
         VehicleFuelTypeEnum.PETROL,
         VEHICLE_INFO,
+        location
     )
     ev = get_emissions_per_day(
         VehicleFuelTypeEnum.ELECTRIC,
         VEHICLE_INFO,
+        location
     )
     if vehicle_type == VehicleFuelTypeEnum.PLUG_IN_HYBRID:
         # PHEV: Assume 60/40 split between petrol and electric
