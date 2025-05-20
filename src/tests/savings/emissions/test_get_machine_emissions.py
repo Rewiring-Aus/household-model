@@ -44,20 +44,20 @@ class TestGetEmissionsPerDay(TestCase):
     }
 
     def test_get_emissions_per_day_gas_cooktop(self):
-        emissions = get_emissions_per_day(CooktopEnum.GAS, self.mock_appliance_info)
+        emissions = get_emissions_per_day(CooktopEnum.GAS, self.mock_appliance_info, LocationEnum.NEW_SOUTH_WALES)
         expected_emissions = 10.0 * EMISSIONS_FACTORS[FuelTypeEnum.NATURAL_GAS]
         assert emissions == expected_emissions
 
     def test_get_emissions_per_day_electric_heat_pump(self):
         emissions = get_emissions_per_day(
-            SpaceHeatingEnum.ELECTRIC_HEAT_PUMP, self.mock_appliance_info
+            SpaceHeatingEnum.ELECTRIC_HEAT_PUMP, self.mock_appliance_info, LocationEnum.NEW_SOUTH_WALES
         )
         expected_emissions = 5.0 * EMISSIONS_FACTORS[FuelTypeEnum.ELECTRICITY]
         assert emissions == expected_emissions
 
     def test_get_emissions_per_day_scaled_by_occupancy(self):
         emissions = get_emissions_per_day(
-            SpaceHeatingEnum.ELECTRIC_HEAT_PUMP, self.mock_appliance_info, 3
+            SpaceHeatingEnum.ELECTRIC_HEAT_PUMP, self.mock_appliance_info, LocationEnum.NEW_SOUTH_WALES, 3
         )
         expected_emissions = 5.0 * 1.03 * EMISSIONS_FACTORS[FuelTypeEnum.ELECTRICITY]
         assert pytest.approx(emissions) == expected_emissions
@@ -67,7 +67,7 @@ class TestGetEmissionsPerDay(TestCase):
             CooktopEnum.GAS: {"kwh_per_day": 10.0, "fuel_type": None}
         }
         with self.assertRaises(KeyError):
-            get_emissions_per_day(CooktopEnum.GAS, mock_appliance_info)
+            get_emissions_per_day(CooktopEnum.GAS, mock_appliance_info, LocationEnum.NEW_SOUTH_WALES)
 
     def test_get_emissions_per_day_handles_missing_kwh_per_day(self):
         mock_appliance_info = {
@@ -77,13 +77,13 @@ class TestGetEmissionsPerDay(TestCase):
             }
         }
         with self.assertRaises(TypeError):
-            get_emissions_per_day(CooktopEnum.GAS, mock_appliance_info)
+            get_emissions_per_day(CooktopEnum.GAS, mock_appliance_info, LocationEnum.NEW_SOUTH_WALES)
 
     def test_get_emissions_per_day_handles_invalid_machine_type(self):
         invalid_machine_type = CooktopEnum.GAS
         invalid_mock_appliance_info = {}
         with self.assertRaises(KeyError):
-            get_emissions_per_day(invalid_machine_type, invalid_mock_appliance_info)
+            get_emissions_per_day(invalid_machine_type, invalid_mock_appliance_info, LocationEnum.NEW_SOUTH_WALES)
 
 
 @patch(
@@ -99,20 +99,20 @@ class TestGetApplianceEmissions:
         self, mock_get_emissions_per_day, _
     ):
         get_appliance_emissions(
-            mock_household.space_heating, SPACE_HEATING_INFO, LocationEnum.OTAGO
+            mock_household.space_heating, SPACE_HEATING_INFO, LocationEnum.NEW_SOUTH_WALES
         )
         mock_get_emissions_per_day.assert_called_once_with(
-            SpaceHeatingEnum.WOOD, SPACE_HEATING_INFO, None, LocationEnum.OTAGO
+            SpaceHeatingEnum.WOOD, SPACE_HEATING_INFO, LocationEnum.NEW_SOUTH_WALES, None
         )
 
     def test_it_calls_get_emissions_for_water_heating_correctly(
         self, mock_get_emissions_per_day, _
     ):
         get_appliance_emissions(
-            mock_household.water_heating, WATER_HEATING_INFO, LocationEnum.OTAGO
+            mock_household.water_heating, WATER_HEATING_INFO, LocationEnum.NEW_SOUTH_WALES
         )
         mock_get_emissions_per_day.assert_called_once_with(
-            WaterHeatingEnum.GAS, WATER_HEATING_INFO, None, LocationEnum.OTAGO
+            WaterHeatingEnum.GAS, WATER_HEATING_INFO, LocationEnum.NEW_SOUTH_WALES, None
         )
 
     def test_it_calls_get_emissions_for_cooktop_correctly(
@@ -122,7 +122,7 @@ class TestGetApplianceEmissions:
             mock_household.cooktop, COOKTOP_INFO, LocationEnum.OTAGO
         )
         mock_get_emissions_per_day.assert_called_once_with(
-            CooktopEnum.ELECTRIC_RESISTANCE, COOKTOP_INFO, None, LocationEnum.OTAGO
+            CooktopEnum.ELECTRIC_RESISTANCE, COOKTOP_INFO, LocationEnum.NEW_SOUTH_WALES, None
         )
 
     def test_it_calls_scale_daily_to_period_correctly(
