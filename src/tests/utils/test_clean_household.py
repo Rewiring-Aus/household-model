@@ -2,6 +2,7 @@ from unittest import TestCase
 from unittest.mock import patch, call
 
 from openapi_client.models.household import Household
+from openapi_client.models.location_enum import LocationEnum
 from openapi_client.models.vehicle import Vehicle
 from openapi_client.models.vehicle_fuel_type_enum import VehicleFuelTypeEnum
 
@@ -25,9 +26,9 @@ class TestCleanHousehold(TestCase):
         )
         mock_clean_vehicle.return_value = cleaned_vehicle
 
-        cleaned_household = clean_household(Household(vehicles=[vehicle]))
+        cleaned_household = clean_household(Household(vehicles=[vehicle], location=LocationEnum.NEW_SOUTH_WALES))
 
-        mock_clean_vehicle.assert_called_once_with(vehicle)
+        mock_clean_vehicle.assert_called_once_with(vehicle, LocationEnum.NEW_SOUTH_WALES)
         self.assertEqual(len(cleaned_household.vehicles), 1)
         self.assertEqual(cleaned_household.vehicles[0].kms_per_week, 123)
 
@@ -43,12 +44,12 @@ class TestCleanHousehold(TestCase):
         )
         mock_clean_vehicle.side_effect = [cleaned_vehicle1, cleaned_vehicle2]
 
-        cleaned_household = clean_household(Household(vehicles=[vehicle1, vehicle2]))
+        cleaned_household = clean_household(Household(vehicles=[vehicle1, vehicle2], location=LocationEnum.NEW_SOUTH_WALES))
 
         self.assertEqual(len(cleaned_household.vehicles), 2)
         self.assertEqual(cleaned_household.vehicles[0].kms_per_week, 123)
         self.assertEqual(cleaned_household.vehicles[1].kms_per_week, 500)
-        mock_clean_vehicle.assert_has_calls([call(vehicle1), call(vehicle2)])
+        mock_clean_vehicle.assert_has_calls([call(vehicle1, LocationEnum.NEW_SOUTH_WALES), call(vehicle2, LocationEnum.NEW_SOUTH_WALES)])
 
 
 class TestCleanVehicle(TestCase):
@@ -58,12 +59,15 @@ class TestCleanVehicle(TestCase):
                 fuelType=VehicleFuelTypeEnum.PETROL,
                 kms_per_week=None,
                 switchToEV=False,
-            )
+            ), LocationEnum.NEW_SOUTH_WALES
         ) == Vehicle(
             fuelType=VehicleFuelTypeEnum.PETROL,
-            kms_per_week=210,
+            kms_per_week=253,
             switchToEV=False,
         )
 
     def test_it_does_not_change_if_kms_present(self):
-        assert clean_vehicle(mock_vehicle_petrol) == mock_vehicle_petrol
+        assert (
+            clean_vehicle(mock_vehicle_petrol, LocationEnum.NEW_SOUTH_WALES)
+            == mock_vehicle_petrol
+        )
