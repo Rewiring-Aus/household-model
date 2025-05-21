@@ -1,12 +1,15 @@
 from constants.fuel_stats import COST_PER_FUEL_KWH_AVG_15_YEARS, COST_PER_FUEL_KWH_TODAY
 from constants.utils import PeriodEnum
+from openapi_client.models.location_enum import LocationEnum
 from savings.energy.get_other_energy_consumption import (
     OtherEnergyConsumption,
 )
 
 
 def get_other_energy_costs(
-    other_e_consumption: OtherEnergyConsumption, period: PeriodEnum
+    other_e_consumption: OtherEnergyConsumption,
+    period: PeriodEnum,
+    location: LocationEnum,
 ) -> float:
     """Get energy costs for fuels other than electricity (e.g. gas, LPG, petrol, diesel)
 
@@ -24,5 +27,5 @@ def get_other_energy_costs(
         else COST_PER_FUEL_KWH_TODAY
     )
     for fuel_type, energy in other_e_consumption.items():
-        total += energy * costs[fuel_type]
+        total += energy * costs[fuel_type][location]
     return total
