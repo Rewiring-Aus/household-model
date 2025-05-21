@@ -50,7 +50,7 @@ def get_water_heating_upfront_cost(
 def get_space_heating_upfront_cost(
     current: SpaceHeatingEnum,
     electrified: SpaceHeatingEnum,
-    location: Optional[LocationEnum] = None,
+    location: LocationEnum,
 ) -> float:
     if current == electrified:
         return 0

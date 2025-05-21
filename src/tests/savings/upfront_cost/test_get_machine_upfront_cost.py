@@ -56,13 +56,13 @@ class TestGetCooktopUpfrontCost(TestCase):
             result = get_cooktop_upfront_cost(
                 switch_from, CooktopEnum.ELECTRIC_INDUCTION
             )
-            assert result == 1430 + 1265
+            assert result == 1400 + 600
 
         for switch_from in switch_from_options:
             result = get_cooktop_upfront_cost(
                 switch_from, CooktopEnum.ELECTRIC_RESISTANCE
             )
-            assert result == 879 + 288
+            assert result == 600 + 400
 
     def test_it_returns_zero_if_electrified_option_already_installed(
         self,
@@ -91,13 +91,13 @@ class TestGetWaterHeatingUpfrontCost(TestCase):
             result = get_water_heating_upfront_cost(
                 switch_from, WaterHeatingEnum.ELECTRIC_HEAT_PUMP
             )
-            assert result == 4678 + 2321  # upfront cost of heat pump
+            assert result == 3000 + 0  # upfront cost of heat pump
 
         for switch_from in switch_from_options:
             result = get_water_heating_upfront_cost(
                 switch_from, WaterHeatingEnum.ELECTRIC_RESISTANCE
             )
-            assert result == 1975 + 1995  # upfront cost of electric resistance
+            assert result == 1400 + 700  # upfront cost of electric resistance
 
     def test_it_returns_zero_if_electrified_option_already_installed(
         self,
@@ -128,10 +128,10 @@ class TestGetSpaceHeatingUpfrontCost(TestCase):
             SpaceHeatingEnum.ELECTRIC_RESISTANCE,
         ]:
             result = get_space_heating_upfront_cost(
-                switch_from, SpaceHeatingEnum.ELECTRIC_HEAT_PUMP
+                switch_from, SpaceHeatingEnum.ELECTRIC_HEAT_PUMP, LocationEnum.NEW_SOUTH_WALES
             )
             assert (
-                result == (2728 + 1050) * 2
+                result == (1700 + 900) * 2
             )  # upfront cost of heat pump * 2 for average home
 
     def test_it_calibrates_number_of_space_heaters_according_to_location(
@@ -141,33 +141,33 @@ class TestGetSpaceHeatingUpfrontCost(TestCase):
             get_space_heating_upfront_cost(
                 SpaceHeatingEnum.GAS,
                 SpaceHeatingEnum.ELECTRIC_HEAT_PUMP,
-                LocationEnum.AUCKLAND_CENTRAL,
+                LocationEnum.NEW_SOUTH_WALES,
             )
-            == (2728 + 1050) * 1
+            == (1700 + 900) * 2
         )
         assert (
             get_space_heating_upfront_cost(
                 SpaceHeatingEnum.GAS,
                 SpaceHeatingEnum.ELECTRIC_HEAT_PUMP,
-                LocationEnum.CANTERBURY,
+                LocationEnum.QUEENSLAND,
             )
-            == (2728 + 1050) * 2
+            == (1700 + 900) * 1
         )
         assert (
             get_space_heating_upfront_cost(
                 SpaceHeatingEnum.GAS,
                 SpaceHeatingEnum.ELECTRIC_HEAT_PUMP,
-                LocationEnum.WELLINGTON,
+                LocationEnum.VICTORIA,
             )
-            == (2728 + 1050) * 3
+            == (1700 + 900) * 3
         )
         assert (
             get_space_heating_upfront_cost(
                 SpaceHeatingEnum.GAS,
                 SpaceHeatingEnum.ELECTRIC_HEAT_PUMP,
-                LocationEnum.OTAGO,
+                LocationEnum.WESTERN_AUSTRALIA,
             )
-            == (2728 + 1050) * 3
+            == (1700 + 900) * 2
         )
 
     def test_it_returns_zero_if_electrified_option_already_installed(
@@ -175,7 +175,7 @@ class TestGetSpaceHeatingUpfrontCost(TestCase):
     ):
         assert (
             get_space_heating_upfront_cost(
-                SpaceHeatingEnum.ELECTRIC_HEAT_PUMP, SpaceHeatingEnum.ELECTRIC_HEAT_PUMP
+                SpaceHeatingEnum.ELECTRIC_HEAT_PUMP, SpaceHeatingEnum.ELECTRIC_HEAT_PUMP, LocationEnum.NEW_SOUTH_WALES
             )
             == 0
         )
