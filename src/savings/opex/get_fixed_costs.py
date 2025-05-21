@@ -1,5 +1,6 @@
 from openapi_client.models.cooktop_enum import CooktopEnum
 from openapi_client.models.household import Household
+from openapi_client.models.location_enum import LocationEnum
 from openapi_client.models.space_heating_enum import SpaceHeatingEnum
 
 from constants.fuel_stats import (
@@ -32,7 +33,7 @@ def get_fixed_costs(
     Returns:
         float: fixed costs for the specified period
     """
-    daily_costs = _get_daily_cost(FuelTypeEnum.ELECTRICITY, period)
+    daily_costs = _get_daily_cost(FuelTypeEnum.ELECTRICITY, period, household.location)
 
     uses_natural_gas = any(
         [
@@ -42,7 +43,7 @@ def get_fixed_costs(
         ]
     )
     if uses_natural_gas:
-        daily_costs += _get_daily_cost(FuelTypeEnum.NATURAL_GAS, period)
+        daily_costs += _get_daily_cost(FuelTypeEnum.NATURAL_GAS, period, household.location)
 
     uses_lpg = any(
         [
@@ -52,12 +53,12 @@ def get_fixed_costs(
         ]
     )
     if uses_lpg and not (ignore_lpg_if_ngas_present and uses_natural_gas):
-        daily_costs += _get_daily_cost(FuelTypeEnum.LPG, period)
+        daily_costs += _get_daily_cost(FuelTypeEnum.LPG, period, household.location)
 
     return scale_daily_to_period(daily_costs, period)
 
 
-def _get_daily_cost(fuel_type: FuelTypeEnum, period: PeriodEnum) -> float:
+def _get_daily_cost(fuel_type: FuelTypeEnum, period: PeriodEnum, location: LocationEnum) -> float:
     """
     Helper to get daily cost for a fuel type
     Period is used to figure out what pricing to use.
@@ -68,6 +69,6 @@ def _get_daily_cost(fuel_type: FuelTypeEnum, period: PeriodEnum) -> float:
         else FIXED_COSTS_PER_YEAR_2024
     )
     try:
-        return costs.get(fuel_type) / DAYS_PER_YEAR
+        return costs[fuel_type][location] / DAYS_PER_YEAR
     except KeyError:
         raise KeyError(f"Missing fixed cost data for fuel type: {fuel_type}")
