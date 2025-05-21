@@ -146,7 +146,7 @@ def get_total_bills(
 
     # Savings
     revenue_from_solar_export = get_solar_feedin_tariff(
-        electricity_consumption["exported_to_grid"], period
+        electricity_consumption["exported_to_grid"], period, household.location
     )
     print("revenue_from_solar_export: ", revenue_from_solar_export)
     print("\n\n")
@@ -187,24 +187,24 @@ def get_effective_grid_price(
         float: the effective grid price
     """
     # TODO: Unit test
-    costs = (
-        COST_PER_FUEL_KWH_AVG_15_YEARS
-        if period == PeriodEnum.OPERATIONAL_LIFETIME
-        else COST_PER_FUEL_KWH_TODAY
-    )
-    grid_price = costs[FuelTypeEnum.ELECTRICITY][location]["volume_rate"]
+
+    if period == PeriodEnum.OPERATIONAL_LIFETIME:
+        grid_price = COST_PER_FUEL_KWH_AVG_15_YEARS[FuelTypeEnum.ELECTRICITY][location]
+    else:
+        grid_price = COST_PER_FUEL_KWH_TODAY[FuelTypeEnum.ELECTRICITY][location]["volume_rate"]
+
     if e_from_battery > 0:
         if e_from_battery >= e_consumed_from_grid:
             # All energy is from the battery, which could be charged at off peak price
-            grid_price = costs[FuelTypeEnum.ELECTRICITY][location]["off_peak"]
+                grid_price = COST_PER_FUEL_KWH_TODAY[FuelTypeEnum.ELECTRICITY][location]["off_peak"]
         if e_from_battery < e_consumed_from_grid:
             # A proportion of the energy consumed from the grid was bought at off peak price
             percent_of_consumed_from_battery = e_from_battery / e_consumed_from_grid
             grid_price = (
-                costs[FuelTypeEnum.ELECTRICITY][location]["off_peak"]
+                COST_PER_FUEL_KWH_TODAY[FuelTypeEnum.ELECTRICITY][location]["off_peak"]
                 * percent_of_consumed_from_battery
             ) + (
-                costs[FuelTypeEnum.ELECTRICITY][location]["volume_rate"]
+                COST_PER_FUEL_KWH_TODAY[FuelTypeEnum.ELECTRICITY][location]["volume_rate"]
                 * (1 - percent_of_consumed_from_battery)
             )
     return grid_price
@@ -235,7 +235,7 @@ def get_effective_grid_price(
 #     return round(total_rucs, 2)
 
 
-def get_solar_feedin_tariff(e_exported: float, period: PeriodEnum) -> float:
-    if PeriodEnum.OPERATIONAL_LIFETIME:
-        return e_exported * SOLAR_FEEDIN_TARIFF_AVG_15_YEARS
+def get_solar_feedin_tariff(e_exported: float, period: PeriodEnum, location: LocationEnum) -> float:
+    if period == PeriodEnum.OPERATIONAL_LIFETIME:
+        return e_exported * SOLAR_FEEDIN_TARIFF_AVG_15_YEARS[location]
     return e_exported * SOLAR_FEEDIN_TARIFF_2024
