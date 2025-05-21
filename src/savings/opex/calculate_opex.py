@@ -1,10 +1,7 @@
 import json
-from typing import List, Optional
-from constants.machines.vehicles import RUCS
 from constants.solar import SOLAR_FEEDIN_TARIFF_2024, SOLAR_FEEDIN_TARIFF_AVG_15_YEARS
-from constants.utils import DAYS_PER_YEAR, WEEKS_PER_YEAR, PeriodEnum
+from constants.utils import PeriodEnum
 from openapi_client.models.location_enum import LocationEnum
-from openapi_client.models.vehicle import Vehicle
 from params import (
     OPERATIONAL_LIFETIME,
 )
