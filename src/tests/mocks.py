@@ -121,5 +121,5 @@ mock_upfront_cost = UpfrontCost(
 
 mock_recommendation = Recommendation(
     action=RecommendationActionEnum("SPACE_HEATING"),
-    url="https://www.rewiring.nz/electrification-guides/space-heating-and-cooling",
+    url="https://www.rewiringaustralia.org/report/factsheet-for-space-heating",
 )
