@@ -106,7 +106,7 @@ ENERGY_NEEDS_OTHER_COOKING = {
     },
 }
 
-# From 'Machines'!B356:L357 and 'Machines'!B232:L237
+# From 'Machines'!B356:L357 
 # pool equipment electric + pool equipment natural gas
 ENERGY_NEEDS_POOL_EQUIPMENT = {
     LocationEnum.OTHER_TERRITORIES: {
