@@ -18,17 +18,19 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional
-from pydantic import BaseModel, Field, StrictStr
-from openapi_client.models.recommendation_action_enum import RecommendationActionEnum
+from typing import Optional, Union
+from pydantic import BaseModel, StrictFloat, StrictInt
 
-class Recommendation(BaseModel):
+class OpexWeeklyOtherEnergyCostsByFuelType(BaseModel):
     """
-    Recommendation
+    OpexWeeklyOtherEnergyCostsByFuelType
     """
-    action: RecommendationActionEnum = Field(...)
-    url: Optional[StrictStr] = Field(default=None, description="A URL to a resource to give more information about this recommended action.")
-    __properties = ["action", "url"]
+    gas: Optional[Union[StrictFloat, StrictInt]] = None
+    lpg: Optional[Union[StrictFloat, StrictInt]] = None
+    wood: Optional[Union[StrictFloat, StrictInt]] = None
+    petrol: Optional[Union[StrictFloat, StrictInt]] = None
+    diesel: Optional[Union[StrictFloat, StrictInt]] = None
+    __properties = ["gas", "lpg", "wood", "petrol", "diesel"]
 
     class Config:
         """Pydantic configuration"""
@@ -44,8 +46,8 @@ class Recommendation(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Recommendation:
-        """Create an instance of Recommendation from a JSON string"""
+    def from_json(cls, json_str: str) -> OpexWeeklyOtherEnergyCostsByFuelType:
+        """Create an instance of OpexWeeklyOtherEnergyCostsByFuelType from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self):
@@ -57,17 +59,20 @@ class Recommendation(BaseModel):
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> Recommendation:
-        """Create an instance of Recommendation from a dict"""
+    def from_dict(cls, obj: dict) -> OpexWeeklyOtherEnergyCostsByFuelType:
+        """Create an instance of OpexWeeklyOtherEnergyCostsByFuelType from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return Recommendation.parse_obj(obj)
+            return OpexWeeklyOtherEnergyCostsByFuelType.parse_obj(obj)
 
-        _obj = Recommendation.parse_obj({
-            "action": obj.get("action"),
-            "url": obj.get("url")
+        _obj = OpexWeeklyOtherEnergyCostsByFuelType.parse_obj({
+            "gas": obj.get("gas"),
+            "lpg": obj.get("lpg"),
+            "wood": obj.get("wood"),
+            "petrol": obj.get("petrol"),
+            "diesel": obj.get("diesel")
         })
         return _obj
 
