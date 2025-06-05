@@ -18,17 +18,17 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional
-from pydantic import BaseModel, Field, StrictStr
-from openapi_client.models.recommendation_action_enum import RecommendationActionEnum
+from typing import Optional, Union
+from pydantic import BaseModel, StrictFloat, StrictInt
 
-class Recommendation(BaseModel):
+class OpexWeeklyFixedCostsByFuelType(BaseModel):
     """
-    Recommendation
+    OpexWeeklyFixedCostsByFuelType
     """
-    action: RecommendationActionEnum = Field(...)
-    url: Optional[StrictStr] = Field(default=None, description="A URL to a resource to give more information about this recommended action.")
-    __properties = ["action", "url"]
+    gas: Optional[Union[StrictFloat, StrictInt]] = None
+    lpg: Optional[Union[StrictFloat, StrictInt]] = None
+    electricity: Optional[Union[StrictFloat, StrictInt]] = None
+    __properties = ["gas", "lpg", "electricity"]
 
     class Config:
         """Pydantic configuration"""
@@ -44,8 +44,8 @@ class Recommendation(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Recommendation:
-        """Create an instance of Recommendation from a JSON string"""
+    def from_json(cls, json_str: str) -> OpexWeeklyFixedCostsByFuelType:
+        """Create an instance of OpexWeeklyFixedCostsByFuelType from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self):
@@ -57,17 +57,18 @@ class Recommendation(BaseModel):
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> Recommendation:
-        """Create an instance of Recommendation from a dict"""
+    def from_dict(cls, obj: dict) -> OpexWeeklyFixedCostsByFuelType:
+        """Create an instance of OpexWeeklyFixedCostsByFuelType from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return Recommendation.parse_obj(obj)
+            return OpexWeeklyFixedCostsByFuelType.parse_obj(obj)
 
-        _obj = Recommendation.parse_obj({
-            "action": obj.get("action"),
-            "url": obj.get("url")
+        _obj = OpexWeeklyFixedCostsByFuelType.parse_obj({
+            "gas": obj.get("gas"),
+            "lpg": obj.get("lpg"),
+            "electricity": obj.get("electricity")
         })
         return _obj
 

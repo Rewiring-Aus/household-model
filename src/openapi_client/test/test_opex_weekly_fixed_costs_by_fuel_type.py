@@ -15,10 +15,10 @@
 import unittest
 import datetime
 
-from openapi_client.models.upfront_cost import UpfrontCost  # noqa: E501
+from openapi_client.models.opex_weekly_fixed_costs_by_fuel_type import OpexWeeklyFixedCostsByFuelType  # noqa: E501
 
-class TestUpfrontCost(unittest.TestCase):
-    """UpfrontCost unit test stubs"""
+class TestOpexWeeklyFixedCostsByFuelType(unittest.TestCase):
+    """OpexWeeklyFixedCostsByFuelType unit test stubs"""
 
     def setUp(self):
         pass
@@ -26,29 +26,27 @@ class TestUpfrontCost(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional) -> UpfrontCost:
-        """Test UpfrontCost
+    def make_instance(self, include_optional) -> OpexWeeklyFixedCostsByFuelType:
+        """Test OpexWeeklyFixedCostsByFuelType
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `UpfrontCost`
+        # uncomment below to create an instance of `OpexWeeklyFixedCostsByFuelType`
         """
-        model = UpfrontCost()  # noqa: E501
+        model = OpexWeeklyFixedCostsByFuelType()  # noqa: E501
         if include_optional:
-            return UpfrontCost(
-                solar = 1.337,
-                battery = 1.337,
-                cooktop = 1.337,
-                water_heating = 1.337,
-                space_heating = 1.337
+            return OpexWeeklyFixedCostsByFuelType(
+                gas = 1.337,
+                lpg = 1.337,
+                electricity = 1.337
             )
         else:
-            return UpfrontCost(
+            return OpexWeeklyFixedCostsByFuelType(
         )
         """
 
-    def testUpfrontCost(self):
-        """Test UpfrontCost"""
+    def testOpexWeeklyFixedCostsByFuelType(self):
+        """Test OpexWeeklyFixedCostsByFuelType"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 
