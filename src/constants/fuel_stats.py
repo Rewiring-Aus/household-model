@@ -23,7 +23,6 @@ EMISSIONS_FACTORS = {
     FuelTypeEnum.DIESEL: 0.25,
     FuelTypeEnum.SOLAR: 0,
     FuelTypeEnum.ELECTRICITY: {
-        LocationEnum.OTHER_TERRITORIES: 0.77,
         LocationEnum.VICTORIA: 0.96,
         LocationEnum.NEW_SOUTH_WALES: 0.79,
         LocationEnum.NORTHERN_TERRITORY: 0.57,
@@ -32,7 +31,6 @@ EMISSIONS_FACTORS = {
         LocationEnum.WESTERN_AUSTRALIA: 0.63,
         LocationEnum.SOUTH_AUSTRALIA: 0.35,
         LocationEnum.QUEENSLAND: 0.80,
-        LocationEnum.OVERSEAS: 0,
     }
 }
 
@@ -44,10 +42,6 @@ EMISSIONS_FACTORS = {
 # Unit: $/kWh
 COST_PER_FUEL_KWH_TODAY = {
 FuelTypeEnum.ELECTRICITY: {
-        LocationEnum.OTHER_TERRITORIES: {
-            "volume_rate": 0.320,
-            "off_peak": 0.211,
-        },
         LocationEnum.VICTORIA: {
             "volume_rate": 0.27,
             "off_peak": 0.18,
@@ -80,13 +74,8 @@ FuelTypeEnum.ELECTRICITY: {
             "volume_rate": 0.32,
             "off_peak": 0.21,
         },
-        LocationEnum.OVERSEAS: {
-            "volume_rate": 0,
-            "off_peak": 0,
-        },
     },
     FuelTypeEnum.NATURAL_GAS: {
-        LocationEnum.OTHER_TERRITORIES: 0.146,
         LocationEnum.VICTORIA: 0.133,
         LocationEnum.NEW_SOUTH_WALES: 0.153,
         LocationEnum.NORTHERN_TERRITORY: 0.146,
@@ -95,10 +84,8 @@ FuelTypeEnum.ELECTRICITY: {
         LocationEnum.WESTERN_AUSTRALIA: 0.115,
         LocationEnum.SOUTH_AUSTRALIA: 0.202,
         LocationEnum.QUEENSLAND: 0.209,
-        LocationEnum.OVERSEAS: 0,
     },
     FuelTypeEnum.LPG: {
-        LocationEnum.OTHER_TERRITORIES: 0.28,
         LocationEnum.VICTORIA: 0.26,
         LocationEnum.NEW_SOUTH_WALES: 0.31,
         LocationEnum.NORTHERN_TERRITORY: 0.40,
@@ -107,10 +94,8 @@ FuelTypeEnum.ELECTRICITY: {
         LocationEnum.WESTERN_AUSTRALIA: 0.22,
         LocationEnum.SOUTH_AUSTRALIA: 0.30,
         LocationEnum.QUEENSLAND: 0.30,
-        LocationEnum.OVERSEAS: 0,
     },
     FuelTypeEnum.WOOD: {
-        LocationEnum.OTHER_TERRITORIES: 0.130,
         LocationEnum.VICTORIA: 0.110,
         LocationEnum.NEW_SOUTH_WALES: 0.140,
         LocationEnum.NORTHERN_TERRITORY: 0.151,
@@ -119,10 +104,8 @@ FuelTypeEnum.ELECTRICITY: {
         LocationEnum.WESTERN_AUSTRALIA: 0.140,
         LocationEnum.SOUTH_AUSTRALIA: 0.111,
         LocationEnum.QUEENSLAND: 0.151,
-        LocationEnum.OVERSEAS: 0,
     },
     FuelTypeEnum.PETROL: {
-        LocationEnum.OTHER_TERRITORIES: 0.199,
         LocationEnum.VICTORIA: 0.199,
         LocationEnum.NEW_SOUTH_WALES: 0.200,
         LocationEnum.NORTHERN_TERRITORY: 0.208,
@@ -131,10 +114,8 @@ FuelTypeEnum.ELECTRICITY: {
         LocationEnum.WESTERN_AUSTRALIA: 0.192,
         LocationEnum.SOUTH_AUSTRALIA: 0.193,
         LocationEnum.QUEENSLAND: 0.202,
-        LocationEnum.OVERSEAS: 0,
     },
     FuelTypeEnum.DIESEL: {
-        LocationEnum.OTHER_TERRITORIES: 0.18,
         LocationEnum.VICTORIA: 0.18,
         LocationEnum.NEW_SOUTH_WALES: 0.18,
         LocationEnum.NORTHERN_TERRITORY: 0.20,
@@ -143,10 +124,8 @@ FuelTypeEnum.ELECTRICITY: {
         LocationEnum.WESTERN_AUSTRALIA: 0.17,
         LocationEnum.SOUTH_AUSTRALIA: 0.18,
         LocationEnum.QUEENSLAND: 0.18,
-        LocationEnum.OVERSEAS: 0,
     },
     FuelTypeEnum.SOLAR: {
-        LocationEnum.OTHER_TERRITORIES: 0,
         LocationEnum.VICTORIA: 0,
         LocationEnum.NEW_SOUTH_WALES: 0,
         LocationEnum.NORTHERN_TERRITORY: 0,
@@ -155,13 +134,11 @@ FuelTypeEnum.ELECTRICITY: {
         LocationEnum.WESTERN_AUSTRALIA: 0,
         LocationEnum.SOUTH_AUSTRALIA: 0,
         LocationEnum.QUEENSLAND: 0,
-        LocationEnum.OVERSEAS: 0,
     },
 }
 
 FIXED_COSTS_PER_YEAR_2024 = {
     FuelTypeEnum.ELECTRICITY: {
-        LocationEnum.OTHER_TERRITORIES: 432,
         LocationEnum.VICTORIA: 396,
         LocationEnum.NEW_SOUTH_WALES: 465,
         LocationEnum.NORTHERN_TERRITORY: 210,
@@ -170,10 +147,8 @@ FIXED_COSTS_PER_YEAR_2024 = {
         LocationEnum.WESTERN_AUSTRALIA: 414,
         LocationEnum.SOUTH_AUSTRALIA: 415,
         LocationEnum.QUEENSLAND: 450,
-        LocationEnum.OVERSEAS: 0,
     },
     FuelTypeEnum.NATURAL_GAS: {
-        LocationEnum.OTHER_TERRITORIES: 247,
         LocationEnum.VICTORIA: 296,
         LocationEnum.NEW_SOUTH_WALES: 244,
         LocationEnum.NORTHERN_TERRITORY: 247,
@@ -182,10 +157,8 @@ FIXED_COSTS_PER_YEAR_2024 = {
         LocationEnum.WESTERN_AUSTRALIA: 80,
         LocationEnum.SOUTH_AUSTRALIA: 297,
         LocationEnum.QUEENSLAND: 247,
-        LocationEnum.OVERSEAS: 0,
     },
     FuelTypeEnum.LPG: {
-        LocationEnum.OTHER_TERRITORIES: 95.47,
         LocationEnum.VICTORIA: 96.0,
         LocationEnum.NEW_SOUTH_WALES: 96.0,
         LocationEnum.NORTHERN_TERRITORY: 105.0,
@@ -194,7 +167,6 @@ FIXED_COSTS_PER_YEAR_2024 = {
         LocationEnum.WESTERN_AUSTRALIA: 90.0,
         LocationEnum.SOUTH_AUSTRALIA: 99.0,
         LocationEnum.QUEENSLAND: 95.0,
-        LocationEnum.OVERSEAS: 0,
     },
 }
 
@@ -202,7 +174,6 @@ FIXED_COSTS_PER_YEAR_2024 = {
 # Unit: $/kWh
 COST_PER_FUEL_KWH_AVG_15_YEARS = {
     FuelTypeEnum.ELECTRICITY: {
-        LocationEnum.OTHER_TERRITORIES: 0.39,
         LocationEnum.VICTORIA: 0.31,
         LocationEnum.NEW_SOUTH_WALES: 0.41,
         LocationEnum.NORTHERN_TERRITORY: 0.28,
@@ -211,10 +182,8 @@ COST_PER_FUEL_KWH_AVG_15_YEARS = {
         LocationEnum.WESTERN_AUSTRALIA: 0.38,
         LocationEnum.SOUTH_AUSTRALIA: 0.54,
         LocationEnum.QUEENSLAND: 0.55,
-        LocationEnum.OVERSEAS: 0,
     },
     FuelTypeEnum.NATURAL_GAS: {
-        LocationEnum.OTHER_TERRITORIES: 0.19,
         LocationEnum.VICTORIA: 0.22,
         LocationEnum.NEW_SOUTH_WALES: 0.19,
         LocationEnum.NORTHERN_TERRITORY: 0.19,
@@ -223,10 +192,8 @@ COST_PER_FUEL_KWH_AVG_15_YEARS = {
         LocationEnum.WESTERN_AUSTRALIA: 0.18,
         LocationEnum.SOUTH_AUSTRALIA: 0.25,
         LocationEnum.QUEENSLAND: 0.247,
-        LocationEnum.OVERSEAS: 0,
     },
     FuelTypeEnum.LPG: {
-        LocationEnum.OTHER_TERRITORIES: 0.36,
         LocationEnum.VICTORIA: 0.35,
         LocationEnum.NEW_SOUTH_WALES: 0.38,
         LocationEnum.NORTHERN_TERRITORY: 0.41,
@@ -235,10 +202,8 @@ COST_PER_FUEL_KWH_AVG_15_YEARS = {
         LocationEnum.WESTERN_AUSTRALIA: 0.26,
         LocationEnum.SOUTH_AUSTRALIA: 0.38,
         LocationEnum.QUEENSLAND: 0.35,
-        LocationEnum.OVERSEAS: 0,
     },
     FuelTypeEnum.WOOD: {
-        LocationEnum.OTHER_TERRITORIES: 0.17,
         LocationEnum.VICTORIA: 0.15,
         LocationEnum.NEW_SOUTH_WALES: 0.17,
         LocationEnum.NORTHERN_TERRITORY: 0.16,
@@ -247,10 +212,8 @@ COST_PER_FUEL_KWH_AVG_15_YEARS = {
         LocationEnum.WESTERN_AUSTRALIA: 0.17,
         LocationEnum.SOUTH_AUSTRALIA: 0.14,
         LocationEnum.QUEENSLAND: 0.18,
-        LocationEnum.OVERSEAS: 0,
     },
     FuelTypeEnum.PETROL: {
-        LocationEnum.OTHER_TERRITORIES: 0.22,
         LocationEnum.VICTORIA: 0.22,
         LocationEnum.NEW_SOUTH_WALES: 0.22,
         LocationEnum.NORTHERN_TERRITORY: 0.21,
@@ -259,10 +222,8 @@ COST_PER_FUEL_KWH_AVG_15_YEARS = {
         LocationEnum.WESTERN_AUSTRALIA: 0.21,
         LocationEnum.SOUTH_AUSTRALIA: 0.21,
         LocationEnum.QUEENSLAND: 0.23,
-        LocationEnum.OVERSEAS: 0,
     },
     FuelTypeEnum.DIESEL: {
-        LocationEnum.OTHER_TERRITORIES: 0.20,
         LocationEnum.VICTORIA: 0.20,
         LocationEnum.NEW_SOUTH_WALES: 0.20,
         LocationEnum.NORTHERN_TERRITORY: 0.20,
@@ -271,10 +232,8 @@ COST_PER_FUEL_KWH_AVG_15_YEARS = {
         LocationEnum.WESTERN_AUSTRALIA: 0.19,
         LocationEnum.SOUTH_AUSTRALIA: 0.19,
         LocationEnum.QUEENSLAND: 0.20,
-        LocationEnum.OVERSEAS: 0,
     },
     FuelTypeEnum.SOLAR: {
-        LocationEnum.OTHER_TERRITORIES: 0,
         LocationEnum.VICTORIA: 0,
         LocationEnum.NEW_SOUTH_WALES: 0,
         LocationEnum.NORTHERN_TERRITORY: 0,
@@ -283,13 +242,11 @@ COST_PER_FUEL_KWH_AVG_15_YEARS = {
         LocationEnum.WESTERN_AUSTRALIA: 0,
         LocationEnum.SOUTH_AUSTRALIA: 0,
         LocationEnum.QUEENSLAND: 0,
-        LocationEnum.OVERSEAS: 0,
     },
 }
 
 FIXED_COSTS_PER_YEAR_AVG_15_YEARS = {
-    FuelTypeEnum.ELECTRICITY: {
-        LocationEnum.OTHER_TERRITORIES: 532.04,
+    FuelTypeEnum.ELECTRICITY: { 
         LocationEnum.VICTORIA: 446.05,
         LocationEnum.NEW_SOUTH_WALES: 562.08,
         LocationEnum.NORTHERN_TERRITORY: 205.94,
@@ -298,10 +255,8 @@ FIXED_COSTS_PER_YEAR_AVG_15_YEARS = {
         LocationEnum.WESTERN_AUSTRALIA: 509.48,
         LocationEnum.SOUTH_AUSTRALIA: 507.18,
         LocationEnum.QUEENSLAND: 777.94,
-        LocationEnum.OVERSEAS: 0,
     },
     FuelTypeEnum.NATURAL_GAS: {
-        LocationEnum.OTHER_TERRITORIES: 314.22,
         LocationEnum.VICTORIA: 265.21,
         LocationEnum.NEW_SOUTH_WALES: 300.40,
         LocationEnum.NORTHERN_TERRITORY: 314.22,
@@ -310,10 +265,8 @@ FIXED_COSTS_PER_YEAR_AVG_15_YEARS = {
         LocationEnum.WESTERN_AUSTRALIA: 398.60,
         LocationEnum.SOUTH_AUSTRALIA: 291.28,
         LocationEnum.QUEENSLAND: 291.28,
-        LocationEnum.OVERSEAS: 0,
     },
     FuelTypeEnum.LPG: {
-        LocationEnum.OTHER_TERRITORIES: 121.53,
         LocationEnum.VICTORIA: 129.28,
         LocationEnum.NEW_SOUTH_WALES: 118.16,
         LocationEnum.NORTHERN_TERRITORY: 108.22,
@@ -322,6 +275,5 @@ FIXED_COSTS_PER_YEAR_AVG_15_YEARS = {
         LocationEnum.WESTERN_AUSTRALIA: 108.54,
         LocationEnum.SOUTH_AUSTRALIA: 125.03,
         LocationEnum.QUEENSLAND: 112.17,
-        LocationEnum.OVERSEAS: 0,
     },
 }

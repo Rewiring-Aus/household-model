@@ -8,9 +8,6 @@ COOKTOP_INFO: MachineInfoMap = {
     CooktopEnum.GAS: {
         "fuel_type": FuelTypeEnum.NATURAL_GAS,
         "per_location": {
-            LocationEnum.OTHER_TERRITORIES: {
-                "kwh_per_day": 2.20,
-            },
             LocationEnum.VICTORIA: {
                 "kwh_per_day": 2.14,
             },
@@ -34,18 +31,12 @@ COOKTOP_INFO: MachineInfoMap = {
             },
             LocationEnum.QUEENSLAND: {
                 "kwh_per_day": 2.17,
-            },
-            LocationEnum.OVERSEAS: {
-                "kwh_per_day": 0,
             },
         },
     },
     CooktopEnum.LPG: {
         "fuel_type": FuelTypeEnum.LPG,
         "per_location": {
-            LocationEnum.OTHER_TERRITORIES: {
-                "kwh_per_day": 2.20,
-            },
             LocationEnum.VICTORIA: {
                 "kwh_per_day": 2.14,
             },
@@ -70,17 +61,11 @@ COOKTOP_INFO: MachineInfoMap = {
             LocationEnum.QUEENSLAND: {
                 "kwh_per_day": 2.17,
             },
-            LocationEnum.OVERSEAS: {
-                "kwh_per_day": 0,
-            },
         },
     },
     CooktopEnum.ELECTRIC_RESISTANCE: {
         "fuel_type": FuelTypeEnum.ELECTRICITY,
         "per_location": {
-            LocationEnum.OTHER_TERRITORIES: {
-                "kwh_per_day": 0.94,
-            },
             LocationEnum.VICTORIA: {
                 "kwh_per_day": 0.92,
             },
@@ -105,17 +90,11 @@ COOKTOP_INFO: MachineInfoMap = {
             LocationEnum.QUEENSLAND: {
                 "kwh_per_day": 0.93,
             },
-            LocationEnum.OVERSEAS: {
-                "kwh_per_day": 0,
-            },
         },
     },
     CooktopEnum.ELECTRIC_INDUCTION: {
         "fuel_type": FuelTypeEnum.ELECTRICITY,
         "per_location": {
-            LocationEnum.OTHER_TERRITORIES: {
-                "kwh_per_day": 0.85,
-            },
             LocationEnum.VICTORIA: {
                 "kwh_per_day": 0.83,
             },
@@ -139,9 +118,6 @@ COOKTOP_INFO: MachineInfoMap = {
             },
             LocationEnum.QUEENSLAND: {
                 "kwh_per_day": 0.84,
-            },
-            LocationEnum.OVERSEAS: {
-                "kwh_per_day": 0,
             },
         },
     },

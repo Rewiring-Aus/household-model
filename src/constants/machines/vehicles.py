@@ -9,9 +9,6 @@ VEHICLE_INFO: MachineInfoMap = {
     VehicleFuelTypeEnum.PETROL: {
         "fuel_type": FuelTypeEnum.PETROL,
         "per_location": {
-            LocationEnum.OTHER_TERRITORIES: {
-                "kwh_per_day": 36,
-            },
             LocationEnum.VICTORIA: {
                 "kwh_per_day": 35.9,
             },
@@ -36,17 +33,11 @@ VEHICLE_INFO: MachineInfoMap = {
             LocationEnum.QUEENSLAND: {
                 "kwh_per_day": 37.2,
             },
-            LocationEnum.OVERSEAS: {
-                "kwh_per_day": 0,
-            },
         },
     },
     VehicleFuelTypeEnum.DIESEL: {
         "fuel_type": FuelTypeEnum.DIESEL,
         "per_location": {
-            LocationEnum.OTHER_TERRITORIES: {
-                "kwh_per_day": 28,
-            },
             LocationEnum.VICTORIA: {
                 "kwh_per_day": 28,
             },
@@ -71,9 +62,6 @@ VEHICLE_INFO: MachineInfoMap = {
             LocationEnum.QUEENSLAND: {
                 "kwh_per_day": 29,
             },
-            LocationEnum.OVERSEAS: {
-                "kwh_per_day": 0,
-            },
         },
     },
     VehicleFuelTypeEnum.HYBRID: [
@@ -81,9 +69,6 @@ VEHICLE_INFO: MachineInfoMap = {
         {
             "fuel_type": FuelTypeEnum.PETROL,
             "per_location": {
-                LocationEnum.OTHER_TERRITORIES: {
-                    "kwh_per_day": 36 * 0.7,
-                },
                 LocationEnum.VICTORIA: {
                     "kwh_per_day": 35.9 * 0.7,
                 },
@@ -108,17 +93,11 @@ VEHICLE_INFO: MachineInfoMap = {
                 LocationEnum.QUEENSLAND: {
                     "kwh_per_day": 37.2 * 0.7,
                 },
-                LocationEnum.OVERSEAS: {
-                    "kwh_per_day": 0 * 0.7,
-                },
             },
         },
         {
             "fuel_type": FuelTypeEnum.ELECTRICITY,
             "per_location": {
-                LocationEnum.OTHER_TERRITORIES: {
-                    "kwh_per_day": 9.3 * 0.3,
-                },
                 LocationEnum.VICTORIA: {
                     "kwh_per_day": 9.2 * 0.3,
                 },
@@ -143,9 +122,6 @@ VEHICLE_INFO: MachineInfoMap = {
                 LocationEnum.QUEENSLAND: {
                     "kwh_per_day": 9.6 * 0.3,
                 },
-                LocationEnum.OVERSEAS: {
-                    "kwh_per_day": 0 * 0.3,
-                },
             },
         },
     ],
@@ -154,9 +130,6 @@ VEHICLE_INFO: MachineInfoMap = {
         {
             "fuel_type": FuelTypeEnum.PETROL,
             "per_location": {
-                LocationEnum.OTHER_TERRITORIES: {
-                    "kwh_per_day": 36 * 0.6,
-                },
                 LocationEnum.VICTORIA: {
                     "kwh_per_day": 35.9 * 0.6,
                 },
@@ -181,17 +154,11 @@ VEHICLE_INFO: MachineInfoMap = {
                 LocationEnum.QUEENSLAND: {
                     "kwh_per_day": 37.2 * 0.6,
                 },
-                LocationEnum.OVERSEAS: {
-                    "kwh_per_day": 0 * 0.6,
-                },
             },
         },
         {
             "fuel_type": FuelTypeEnum.ELECTRICITY,
             "per_location": {
-                LocationEnum.OTHER_TERRITORIES: {
-                    "kwh_per_day": 9.3 * 0.4,
-                },
                 LocationEnum.VICTORIA: {
                     "kwh_per_day": 9.2 * 0.4,
                 },
@@ -215,19 +182,13 @@ VEHICLE_INFO: MachineInfoMap = {
                 },
                 LocationEnum.QUEENSLAND: {
                     "kwh_per_day": 9.6 * 0.4,
-                },
-                LocationEnum.OVERSEAS: {
-                    "kwh_per_day": 0 * 0.4,
-                },
+                },  
             },
         },
     ],
     VehicleFuelTypeEnum.ELECTRIC: {
         "fuel_type": FuelTypeEnum.ELECTRICITY,
         "per_location": {
-            LocationEnum.OTHER_TERRITORIES: {
-                "kwh_per_day": 9.3,
-            },
             LocationEnum.VICTORIA: {
                 "kwh_per_day": 9.2,
             },
@@ -252,16 +213,12 @@ VEHICLE_INFO: MachineInfoMap = {
             LocationEnum.QUEENSLAND: {
                 "kwh_per_day": 9.6,
             },
-            LocationEnum.OVERSEAS: {
-                "kwh_per_day": 0,
-            },
         },
     },
 }
 
 # From 'Machines'!B390:L390 * 7
 VEHICLE_AVG_KMS_PER_WEEK = {
-    LocationEnum.OTHER_TERRITORIES: 36.4 * 7,
     LocationEnum.VICTORIA: 38.0 * 7,
     LocationEnum.NEW_SOUTH_WALES: 36.2 * 7,
     LocationEnum.NORTHERN_TERRITORY: 35.9 * 7,
@@ -270,5 +227,4 @@ VEHICLE_AVG_KMS_PER_WEEK = {
     LocationEnum.WESTERN_AUSTRALIA: 33.8 * 7,
     LocationEnum.SOUTH_AUSTRALIA: 35.0 * 7,
     LocationEnum.QUEENSLAND: 36.9 * 7,
-    LocationEnum.OVERSEAS: 0 * 7,
 }
