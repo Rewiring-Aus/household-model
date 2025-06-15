@@ -16,6 +16,8 @@ The main method of space heating
 
 * `ELECTRIC_HEAT_PUMP` (value: `'ELECTRIC_HEAT_PUMP'`)
 
+* `NONE` (value: `'NONE'`)
+
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

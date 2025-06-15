@@ -35,6 +35,9 @@ def get_emissions_per_day(
         float: machine's emissions in kgCO2e per day
     """
     # TODO: Use get_energy_per_day() for calculating energy, then just multiply by emissions factor
+    if machine_type == SpaceHeatingEnum.NONE:
+        return 0
+
     energy = machine_stats_map[machine_type]["per_location"][location]["kwh_per_day"]
     fuel_type = machine_stats_map[machine_type]["fuel_type"]
     energy_scaled = scale_energy_by_occupancy(energy, occupancy)

@@ -14,6 +14,7 @@ from constants.machines.vehicles import (
 )
 from constants.utils import PeriodEnum
 from openapi_client.models.location_enum import LocationEnum
+from openapi_client.models.space_heating_enum import SpaceHeatingEnum
 from savings.energy.scale_energy_by_occupancy import scale_energy_by_occupancy
 from utils.scale_daily_to_period import scale_daily_to_period
 
@@ -114,13 +115,17 @@ def get_total_appliance_energy(
     location: LocationEnum,
 ) -> Dict[FuelTypeEnum, float]:
 
-    space_heating_energy = get_energy_per_period(
-        household.space_heating,
-        SPACE_HEATING_INFO,
-        location,
-        household.occupancy,
-        period,
-    )
+    if household.space_heating == SpaceHeatingEnum.NONE:
+        space_heating_energy = {FuelTypeEnum.NONE: 0}
+
+    else:
+        space_heating_energy = get_energy_per_period(
+            household.space_heating,
+            SPACE_HEATING_INFO,
+            location,
+            household.occupancy,
+            period,
+        )
     water_heating_energy = get_energy_per_period(
         household.water_heating,
         WATER_HEATING_INFO,
@@ -137,6 +142,8 @@ def get_total_appliance_energy(
     )
     energy_dict = {}
     for fuel in FuelTypeEnum:
+        if fuel == FuelTypeEnum.NONE: # Exclude none fuel type coming from "no space heating" option
+            continue
         # Exclude solar because the energy consumed from solar is calculated separately
         if fuel != FuelTypeEnum.SOLAR:
             energy_dict[fuel] = energy_dict.get(fuel, 0) + space_heating_energy.get(
