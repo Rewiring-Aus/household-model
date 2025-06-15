@@ -4,8 +4,6 @@ Where the household is located
 
 ## Enum
 
-* `OTHER_TERRITORIES` (value: `'OTHER_TERRITORIES'`)
-
 * `VICTORIA` (value: `'VICTORIA'`)
 
 * `NEW_SOUTH_WALES` (value: `'NEW_SOUTH_WALES'`)
@@ -21,8 +19,6 @@ Where the household is located
 * `SOUTH_AUSTRALIA` (value: `'SOUTH_AUSTRALIA'`)
 
 * `QUEENSLAND` (value: `'QUEENSLAND'`)
-
-* `OVERSEAS` (value: `'OVERSEAS'`)
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
