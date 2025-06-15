@@ -10,6 +10,7 @@ class FuelTypeEnum(str, Enum):
     PETROL = "petrol"
     DIESEL = "diesel"
     SOLAR = "solar"  # this is direct solar, e.g. roof solar water heaters
+    NONE = "none"
 
 
 # From 'Location data'!A187:J193
