@@ -4,9 +4,6 @@ from openapi_client.models.location_enum import LocationEnum
 
 # From 'Machines'!B43:L43
 ENERGY_NEEDS_SPACE_COOLING = {
-    LocationEnum.OTHER_TERRITORIES: {
-        "kwh_per_day": 0.94,
-    },
     LocationEnum.VICTORIA: {
         "kwh_per_day": 0.10,
     },
@@ -31,17 +28,11 @@ ENERGY_NEEDS_SPACE_COOLING = {
     LocationEnum.QUEENSLAND: {
         "kwh_per_day": 1.89,
     },
-    LocationEnum.OVERSEAS: {
-        "kwh_per_day": 0,
-    },
 }
 
 # From 'Machines'!B349:L357
 # washer dryer + lighting + other appliances
 ENERGY_NEEDS_OTHER_APPLIANCES = {
-    LocationEnum.OTHER_TERRITORIES: {
-        "kwh_per_day": 5.21,
-    },
     LocationEnum.VICTORIA: {
         "kwh_per_day": 5.21,
     },
@@ -66,17 +57,11 @@ ENERGY_NEEDS_OTHER_APPLIANCES = {
     LocationEnum.QUEENSLAND: {
         "kwh_per_day": 5.09,
     },
-    LocationEnum.OVERSEAS: {
-        "kwh_per_day": 0,
-    },
 }
 
 # From 'Machines'!B349:L357 and 'Machines'!B232:L237
 # refrigeration + dishwasher + oven + microwave + uprights
 ENERGY_NEEDS_OTHER_COOKING = {
-    LocationEnum.OTHER_TERRITORIES: {
-        "kwh_per_day": 3.40,
-    },
     LocationEnum.VICTORIA: {
         "kwh_per_day": 3.32,
     },
@@ -101,17 +86,11 @@ ENERGY_NEEDS_OTHER_COOKING = {
     LocationEnum.QUEENSLAND: {
         "kwh_per_day": 3.35,
     },
-    LocationEnum.OVERSEAS: {
-        "kwh_per_day": 0,
-    },
 }
 
 # From 'Machines'!B356:L357 
 # pool equipment electric + pool equipment natural gas
 ENERGY_NEEDS_POOL_EQUIPMENT = {
-    LocationEnum.OTHER_TERRITORIES: {
-        "kwh_per_day": 0.92,
-    },
     LocationEnum.VICTORIA: {
         "kwh_per_day": 0.48,
     },
@@ -135,9 +114,6 @@ ENERGY_NEEDS_POOL_EQUIPMENT = {
     },
     LocationEnum.QUEENSLAND: {
         "kwh_per_day": 1.37,
-    },
-    LocationEnum.OVERSEAS: {
-        "kwh_per_day": 0,
     },
 }
 

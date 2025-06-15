@@ -9,9 +9,6 @@ WATER_HEATING_INFO: MachineInfoMap = {
     WaterHeatingEnum.GAS: {
         "fuel_type": FuelTypeEnum.NATURAL_GAS,
         "per_location": {
-            LocationEnum.OTHER_TERRITORIES: {
-                "kwh_per_day": 7.93,
-            },
             LocationEnum.VICTORIA: {
                 "kwh_per_day": 8.70,
             },
@@ -35,18 +32,12 @@ WATER_HEATING_INFO: MachineInfoMap = {
             },
             LocationEnum.QUEENSLAND: {
                 "kwh_per_day": 7.38,
-            },
-            LocationEnum.OVERSEAS: {
-                "kwh_per_day": 0,
             },
         },
     },
     WaterHeatingEnum.LPG: {
         "fuel_type": FuelTypeEnum.LPG,
         "per_location": {
-            LocationEnum.OTHER_TERRITORIES: {
-                "kwh_per_day": 7.93,
-            },
             LocationEnum.VICTORIA: {
                 "kwh_per_day": 8.70,
             },
@@ -71,17 +62,11 @@ WATER_HEATING_INFO: MachineInfoMap = {
             LocationEnum.QUEENSLAND: {
                 "kwh_per_day": 7.38,
             },
-            LocationEnum.OVERSEAS: {
-                "kwh_per_day": 0,
-            },
         },
     },
     WaterHeatingEnum.ELECTRIC_RESISTANCE: {
         "fuel_type": FuelTypeEnum.ELECTRICITY,
         "per_location": {
-            LocationEnum.OTHER_TERRITORIES: {
-                "kwh_per_day": 6.75,
-            },
             LocationEnum.VICTORIA: {
                 "kwh_per_day": 7.41,
             },
@@ -106,17 +91,11 @@ WATER_HEATING_INFO: MachineInfoMap = {
             LocationEnum.QUEENSLAND: {
                 "kwh_per_day": 6.28,
             },
-            LocationEnum.OVERSEAS: {
-                "kwh_per_day": 0,
-            },
         },
     },
     WaterHeatingEnum.ELECTRIC_HEAT_PUMP: {
         "fuel_type": FuelTypeEnum.ELECTRICITY,
         "per_location": {
-            LocationEnum.OTHER_TERRITORIES: {
-                "kwh_per_day": 1.83,
-            },
             LocationEnum.VICTORIA: {
                 "kwh_per_day": 2.05,
             },
@@ -140,9 +119,6 @@ WATER_HEATING_INFO: MachineInfoMap = {
             },
             LocationEnum.QUEENSLAND: {
                 "kwh_per_day": 1.64,
-            },
-            LocationEnum.OVERSEAS: {
-                "kwh_per_day": 0,
             },
         },
     },
@@ -151,9 +127,6 @@ WATER_HEATING_INFO: MachineInfoMap = {
         # uses heat pump numbers for now 
         "fuel_type": FuelTypeEnum.SOLAR,
         "per_location": {
-            LocationEnum.OTHER_TERRITORIES: {
-                "kwh_per_day": 1.83,
-            },
             LocationEnum.VICTORIA: {
                 "kwh_per_day": 2.05,
             },
@@ -177,9 +150,6 @@ WATER_HEATING_INFO: MachineInfoMap = {
             },
             LocationEnum.QUEENSLAND: {
                 "kwh_per_day": 1.64,
-            },
-            LocationEnum.OVERSEAS: {
-                "kwh_per_day": 0,
             },
         },
     },

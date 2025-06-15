@@ -9,9 +9,6 @@ SPACE_HEATING_INFO: MachineInfoMap = {
     SpaceHeatingEnum.WOOD: {
         "fuel_type": FuelTypeEnum.WOOD,
         "per_location": {
-            LocationEnum.OTHER_TERRITORIES: {
-                "kwh_per_day": 19.7,
-            },
             LocationEnum.VICTORIA: {
                 "kwh_per_day": 35.91,
             },
@@ -36,17 +33,11 @@ SPACE_HEATING_INFO: MachineInfoMap = {
             LocationEnum.QUEENSLAND: {
                 "kwh_per_day": 7.93,
             },
-            LocationEnum.OVERSEAS: {
-                "kwh_per_day": 0,
-            },
         },
     },
     SpaceHeatingEnum.GAS: {
         "fuel_type": FuelTypeEnum.NATURAL_GAS,
         "per_location": {
-            LocationEnum.OTHER_TERRITORIES: {
-                "kwh_per_day": 16.0,
-            },
             LocationEnum.VICTORIA: {
                 "kwh_per_day": 29.18,
             },
@@ -70,18 +61,12 @@ SPACE_HEATING_INFO: MachineInfoMap = {
             },
             LocationEnum.QUEENSLAND: {
                 "kwh_per_day": 6.44,
-            },
-            LocationEnum.OVERSEAS: {
-                "kwh_per_day": 0,
             },
         },
     },
     SpaceHeatingEnum.LPG: {
         "fuel_type": FuelTypeEnum.LPG,
         "per_location": {
-            LocationEnum.OTHER_TERRITORIES: {
-                "kwh_per_day": 16.0,
-            },
             LocationEnum.VICTORIA: {
                 "kwh_per_day": 29.18,
             },
@@ -106,17 +91,11 @@ SPACE_HEATING_INFO: MachineInfoMap = {
             LocationEnum.QUEENSLAND: {
                 "kwh_per_day": 6.44,
             },
-            LocationEnum.OVERSEAS: {
-                "kwh_per_day": 0,
-            },
         },
     },
     SpaceHeatingEnum.DIESEL: {
         "fuel_type": FuelTypeEnum.DIESEL,
         "per_location": {
-            LocationEnum.OTHER_TERRITORIES: {
-                "kwh_per_day": 0,
-            },
             LocationEnum.VICTORIA: {
                 "kwh_per_day": 0,
             },
@@ -139,9 +118,6 @@ SPACE_HEATING_INFO: MachineInfoMap = {
                 "kwh_per_day": 0,
             },
             LocationEnum.QUEENSLAND: {
-                "kwh_per_day": 0,
-            },
-            LocationEnum.OVERSEAS: {
                 "kwh_per_day": 0,
             },
         },
@@ -149,9 +125,6 @@ SPACE_HEATING_INFO: MachineInfoMap = {
     SpaceHeatingEnum.ELECTRIC_RESISTANCE: {
         "fuel_type": FuelTypeEnum.ELECTRICITY,
         "per_location": {
-            LocationEnum.OTHER_TERRITORIES: {
-                "kwh_per_day": 12.8,
-            },
             LocationEnum.VICTORIA: {
                 "kwh_per_day": 23.34,
             },
@@ -176,17 +149,11 @@ SPACE_HEATING_INFO: MachineInfoMap = {
             LocationEnum.QUEENSLAND: {
                 "kwh_per_day": 5.16,
             },
-            LocationEnum.OVERSEAS: {
-                "kwh_per_day": 0,
-            },
         },
     },
     SpaceHeatingEnum.ELECTRIC_HEAT_PUMP: {
         "fuel_type": FuelTypeEnum.ELECTRICITY,
         "per_location": {
-            LocationEnum.OTHER_TERRITORIES: {
-                "kwh_per_day": 3.3,
-            },
             LocationEnum.VICTORIA: {
                 "kwh_per_day": 6.007,
             },
@@ -210,9 +177,6 @@ SPACE_HEATING_INFO: MachineInfoMap = {
             },
             LocationEnum.QUEENSLAND: {
                 "kwh_per_day": 1.253,
-            },
-            LocationEnum.OVERSEAS: {
-                "kwh_per_day": 0,
             },
         },
     },
@@ -246,7 +210,6 @@ SPACE_HEATING_UPFRONT_COST = {
 
 # From 'Location data'!A2:J2
 N_HEAT_PUMPS_NEEDED_PER_LOCATION = {
-    LocationEnum.OTHER_TERRITORIES: 2,
     LocationEnum.VICTORIA: 3,
     LocationEnum.NEW_SOUTH_WALES: 2,
     LocationEnum.NORTHERN_TERRITORY: 1,
@@ -255,5 +218,4 @@ N_HEAT_PUMPS_NEEDED_PER_LOCATION = {
     LocationEnum.WESTERN_AUSTRALIA: 2,
     LocationEnum.SOUTH_AUSTRALIA: 2,
     LocationEnum.QUEENSLAND: 1,
-    LocationEnum.OVERSEAS: 1,
 }
