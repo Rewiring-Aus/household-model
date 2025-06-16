@@ -15,7 +15,7 @@ from openapi_client.models import (
 def calculate_upfront_cost(current: Household, electrified: Household) -> UpfrontCost:
     # TODO: incorporate occupancy into upfront cost calcs
     return UpfrontCost(
-        solar=get_solar_upfront_cost(current.solar),
+        solar=get_solar_upfront_cost(current.solar, current.location),
         battery=get_battery_upfront_cost(current.battery),
         cooktop=get_cooktop_upfront_cost(current.cooktop, electrified.cooktop),
         waterHeating=get_water_heating_upfront_cost(
