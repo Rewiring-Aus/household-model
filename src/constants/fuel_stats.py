@@ -24,14 +24,14 @@ EMISSIONS_FACTORS = {
     FuelTypeEnum.DIESEL: 0.25,
     FuelTypeEnum.SOLAR: 0,
     FuelTypeEnum.ELECTRICITY: {
-        LocationEnum.VICTORIA: 0.96,
-        LocationEnum.NEW_SOUTH_WALES: 0.79,
-        LocationEnum.NORTHERN_TERRITORY: 0.57,
-        LocationEnum.AUSTRALIAN_CAPITAL_TERRITORY: 0.79,
-        LocationEnum.TASMANIA: 0.16,
-        LocationEnum.WESTERN_AUSTRALIA: 0.63,
-        LocationEnum.SOUTH_AUSTRALIA: 0.35,
-        LocationEnum.QUEENSLAND: 0.80,
+        LocationEnum.VICTORIA: 0.30,
+        LocationEnum.NEW_SOUTH_WALES: 0.26,
+        LocationEnum.NORTHERN_TERRITORY: 0.20,
+        LocationEnum.AUSTRALIAN_CAPITAL_TERRITORY: 0.26,
+        LocationEnum.TASMANIA: 0.05,
+        LocationEnum.WESTERN_AUSTRALIA: 0.22,
+        LocationEnum.SOUTH_AUSTRALIA: 0.09,
+        LocationEnum.QUEENSLAND: 0.27,
     }
 }
 

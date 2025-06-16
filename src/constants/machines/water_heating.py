@@ -3,7 +3,7 @@ from constants.fuel_stats import FuelTypeEnum
 from constants.machines.machine_info import MachineInfoMap
 from openapi_client.models.location_enum import LocationEnum
 
-# kwh_per_day are from values in 'Location data'!A34:J63
+# kwh_per_day are from values in 'Machines'!A145:L149
 
 WATER_HEATING_INFO: MachineInfoMap = {
     WaterHeatingEnum.GAS: {
@@ -162,16 +162,16 @@ WATER_HEATING_UPFRONT_COST = {
         "install_cost": 700,  
     },
     WaterHeatingEnum.GAS: {
-        "item_price": 1600,  # assuming storage
-        "install_cost": 600,  
+        "item_price": 1200,  # assuming instant
+        "install_cost": 700,  
     },
     WaterHeatingEnum.LPG: {
-        "item_price": 1600,  # assuming storage
-        "install_cost": 600,  
+        "item_price": 1200,  # assuming instant
+        "install_cost": 700,  
     },
     WaterHeatingEnum.ELECTRIC_HEAT_PUMP: {
-        "item_price": 3000,  
-        "install_cost": 0,  # Note: Because of subsidies $700 install cost is not added to total, the total already includes install as shown in the sources provided. Subsidies for heat pumps lower the install cost.
+        "item_price": 3500,  
+        "install_cost": 0,  
     },
     WaterHeatingEnum.SOLAR: {
         # Not sure on price but also low priority because we don't recommend switching to rooftop direct-solar water heating (like Solahart)
