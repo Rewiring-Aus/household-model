@@ -88,45 +88,13 @@ ENERGY_NEEDS_OTHER_COOKING = {
     },
 }
 
-# From 'Machines'!B356:L357 
-# pool equipment electric + pool equipment natural gas
-ENERGY_NEEDS_POOL_EQUIPMENT = {
-    LocationEnum.VICTORIA: {
-        "kwh_per_day": 0.48,
-    },
-    LocationEnum.NEW_SOUTH_WALES: {
-        "kwh_per_day": 1.01,
-    },
-    LocationEnum.NORTHERN_TERRITORY: {
-        "kwh_per_day": 2.0,
-    },
-    LocationEnum.AUSTRALIAN_CAPITAL_TERRITORY: {
-        "kwh_per_day": 0.33,
-    },
-    LocationEnum.TASMANIA: {
-        "kwh_per_day": 0.34,
-    },
-    LocationEnum.WESTERN_AUSTRALIA: {
-        "kwh_per_day": 1.20,
-    },
-    LocationEnum.SOUTH_AUSTRALIA: {
-        "kwh_per_day": 0.67,
-    },
-    LocationEnum.QUEENSLAND: {
-        "kwh_per_day": 1.37,
-    },
-}
-
-
-
 ENERGY_NEEDS_OTHER_MACHINES_PER_DAY = {}
 
 for location in LocationEnum:
     total_kwh = (
         ENERGY_NEEDS_SPACE_COOLING.get(location, {}).get("kwh_per_day", 0) +
         ENERGY_NEEDS_OTHER_APPLIANCES.get(location, {}).get("kwh_per_day", 0) +
-        ENERGY_NEEDS_OTHER_COOKING.get(location, {}).get("kwh_per_day", 0) +
-        ENERGY_NEEDS_POOL_EQUIPMENT.get(location, {}).get("kwh_per_day", 0)
+        ENERGY_NEEDS_OTHER_COOKING.get(location, {}).get("kwh_per_day", 0) 
     )
 
     ENERGY_NEEDS_OTHER_MACHINES_PER_DAY[location] = {
