@@ -38,3 +38,16 @@ SOLAR_CAPACITY_FACTOR = {
     LocationEnum.SOUTH_AUSTRALIA: 0.1788,
     LocationEnum.QUEENSLAND: 0.1868,
 }
+
+# Takes into account the inverter
+SOLAR_COST_PER_KW = {
+    LocationEnum.VICTORIA: 792,
+    LocationEnum.NEW_SOUTH_WALES: 791,
+    LocationEnum.NORTHERN_TERRITORY: 1306,
+    LocationEnum.AUSTRALIAN_CAPITAL_TERRITORY: 821,
+    LocationEnum.TASMANIA: 949,
+    LocationEnum.WESTERN_AUSTRALIA: 882,
+    LocationEnum.SOUTH_AUSTRALIA: 805,
+    LocationEnum.QUEENSLAND: 811,
+}
+

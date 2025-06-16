@@ -12,16 +12,13 @@ from openapi_client.models.location_enum import LocationEnum
 from openapi_client.models.solar import Solar
 from openapi_client.models.space_heating_enum import SpaceHeatingEnum
 from openapi_client.models.water_heating_enum import WaterHeatingEnum
-
-# Takes into account the inverter
-SOLAR_COST_PER_KW = 20500 / 9  # $2277.78
-
-BATTERY_COST_PER_KWH = 1000
+from constants.solar import SOLAR_COST_PER_KW
+from constants.battery import BATTERY_COST_PER_KWH
 
 
-def get_solar_upfront_cost(current: Solar) -> float:
+def get_solar_upfront_cost(current: Solar, location: LocationEnum) -> float:
     if should_install(current):
-        return round(SOLAR_COST_PER_KW * current.size, 2)
+        return round(SOLAR_COST_PER_KW[location] * current.size, 2)
     return 0
 
 
