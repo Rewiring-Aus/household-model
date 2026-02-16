@@ -2,12 +2,11 @@
 
 ## 1 Summary of modelling approach
 
-Our modelling uses household and vehicle energy use data at a per machine level (e.g. energy use per gas water heater, or per petrol car), primarily from government sources, combined with up-to-date (2024) energy pricing and product pricing, to understand the economics of electrifying each type of individual machine occurring in New Zealand’s housing stock. This includes:
+Our modelling uses household and vehicle energy use data at a per machine level (e.g. energy use per gas water heater, or per petrol car), primarily from government sources, combined with up-to-date (2025) energy pricing and product pricing, to understand the economics of electrifying each type of individual machine occurring in Australia's housing stock. This includes:
 
 - operating costs
     - the gas, electricity, or petrol bills paid to operate that machine
     - fixed connection costs for gas, LPG, and electricity.
-    - road user charges (RUCs) for electric vehicles, plug-in hybrids, and diesel vehicles
 - emissions: the amount of emissions saved based on energy consumption and emissions factor of the fuel type
 - product replacement costs: the costs to replace like for like, or to replace a fossil fuel option with an electrified option including installation costs
 
@@ -28,84 +27,74 @@ Next, we calculate the energy use, which we use to determine the emissions and o
 
 ### 3.1 Appliances
 
-We derive average household energy use across different appliances through the [Australian and New Zealand Residential Baseline Study 2021](https://www.energyrating.gov.au/industry-information/publications/report-2021-residential-baseline-study-australia-and-new-zealand-2000-2040), published November 2022. From here, these are scaled by regional heat demand differences where applicable, then scaled to the appropriate period (e.g. weekly, yearly, operational lifetime of 15 years).
+We derive average household energy use across different appliances through the [Australian and New Zealand Residential Baseline Study 2021](https://www.energyrating.gov.au/industry-information/publications/report-2021-residential-baseline-study-australia-and-new-zealand-2000-2040), published November 2022. From here, these are scaled to the appropriate period (e.g. weekly, yearly, operational lifetime of 15 years).
 
 #### 3.1.2 Space heating
 
 Space heating energy factors for all heater types except heat pumps are sourced from the [Warm Homes Technical Report](http://environment.govt.nz/assets/Publications/Files/warm-homes-heating-optionsphase1.pdf) published by the Ministry for the Environment in November 2005. Average heat pump energy use was calculated using a coefficient of performance of 4.08, sourced from [EECA sales & efficiency data](https://www.eeca.govt.nz/insights/eeca-insights/e3-programme-sales-and-efficiency-data/).
 
-Average energy use per day for space heater types:
-| Space heating fuel type       | Energy use (kWh/day) |
-|-------------------------------|----------------------|
-| Wood                          | 14.44               |
-| Natural gas                   | 11.73               |
-| LPG                           | 11.73               |
-| Diesel                           | 12.95               |
-| Electric resistance           | 9.39                |
-| Electric heat pump            | 2.3                 |
+Average energy use per day (in kWh/day) for space heater types:
 
-We multiply these national average energy use values by a region factor, to reflect the different heating needs per region. This is based on [EECA data on air conditioner energy consumption](https://www.genless.govt.nz/assets/Everyone-Resources/air-conditioners-disclaimer.pdf).
-
-| Location                | Heating multiplier |
-|-------------------------|---------------------|
-| Northland              | 0.49       |
-| Auckland               | 0.63       |
-| Waikato                | 1.06        |
-| Bay of Plenty          | 0.78       |
-| Gisborne               | 0.99       |
-| Hawke's Bay            | 0.99       |
-| Taranaki               | 0.88       |
-| Manawatū-Whanganui     | 1.04         |
-| Wellington             | 1.13        |
-| Tasman                 | 0.78       |
-| Nelson                 | 0.78       |
-| Marlborough            | 1.22        |
-| West Coast             | 1.45        |
-| Canterbury             | 1.56        |
-| Otago                  | 1.60        |
-| Southland              | 1.76        |
-| Stewart Island*              | 1.76        |
-| Chatham Islands*              | 1.76        |
-| Great Barrier Island*              | 1.00        |
-| Overseas*              | 1.00        |
-| Other*              | 1.00        |
-
-*Data not available, assuming same value as a similar region
+| Location                             | OT | NSW  | ACT   | NT    | QLD   | SA    | TAS   | VIC   | WA    |
+|-------------------------------------|-------|-------|--------|--------|--------|--------|--------|--------|--------|
+| Electric heat pump                | 3.3   | 2.273 | 8.531  | 0.263  | 1.253  | 2.745  | 7.362  | 6.007  | 1.969  |
+| Electric resistance | 12.8  | 9.09  | 31.20  | 1.11   | 5.16   | 10.98  | 26.92  | 23.34  | 7.87   |
+| Natural gas                              | 16.0  | 11.36 | 39.00  | 1.39   | 6.44   | 13.72  | 33.65  | 29.18  | 9.84   |
+| LPG                              | 16.0  | 11.36 | 39.00  | 1.39   | 6.44   | 13.72  | 33.65  | 29.18  | 9.84   |
+| Wood                             | 19.7  | 13.99 | 48.00  | 1.71   | 7.93   | 16.89  | 41.42  | 35.91  | 12.12  |
 
 #### 3.1.3 Water heating
 
-Water heating efficiencies are sourced from the [US Department of Energy Energy Star ratings scheme](https://www.energystar.gov/products/water_heaters/residential_water_heaters_key_product_criteria). Electric resistive tank water heating is assumed at 90%, and heat pump water heaters are assumed at 367%, which is based upon the 10% tank losses combined with the EECA's 408% heat pump efficiency for space heating. We do not take location into account when it comes to water heating energy needs.
+Water heating efficiencies are sourced from the [US Department of Energy Energy Star ratings scheme](https://www.energystar.gov/products/water_heaters/residential_water_heaters_key_product_criteria). Electric resistive tank water heating is assumed at 90%, and heat pump water heaters are assumed at 367%, which is based upon the 10% tank losses combined with the EECA's 408% heat pump efficiency for space heating. 
 
-Average energy use per day for water heater type:
-| Water heating fuel type       | Energy use (kWh/day) |
-|-------------------------------|----------------------|
-| Natural gas                   | 6.6                 |
-| LPG                           | 6.6                 |
-| Electric resistive           | 6.97                |
-| Electric heat pump            | 1.71                |
-| Solar                         | 1.71                |
+Average energy use per day (in kWh/day) for water heater types:
+
+| Water heater type | OT | NSW | ACT | NT | QLD | SA | TAS | VIC | WA |
+|-------------------|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+| Electric heat pump | 1.83 | 1.76 | 2.00 | 1.27 | 1.64 | 1.81 | 1.90 | 2.05 | 1.84 |
+| Electric resistance | 6.75 | 6.54 | 6.80 | 4.99 | 6.28 | 6.75 | 6.46 | 7.41 | 6.84 |
+| Natural gas | 7.93 | 7.69 | 7.99 | 5.86 | 7.38 | 7.93 | 7.59 | 8.70 | 8.04 |
+| LPG | 7.93 | 7.69 | 7.99 | 5.86 | 7.38 | 7.93 | 7.59 | 8.70 | 8.04 |
 
 #### 3.1.4 Cooktop
 
 Cooktop efficiency is sourced from the Frontier Energy [Residential Cooktop Performance and Energy Comparison Study #501318071-R0](https://cao-94612.s3.amazonaws.com/documents/Induction-Range-Final-Report-July-2019.pdf), published in July 2019. Electric efficiency is assumed at 95%, and gas/LPG at 90%. 
 
-Average energy use per day for cooktop type:
-| Cooktop fuel type             | Energy use (kWh/day) |
-|-------------------------------|----------------------|
-| Natural gas                   | 1.94                 |
-| LPG                           | 1.94                 |
-| Electric resistive            | 0.83                 |
-| Electric induction            | 0.75                 |
+Average energy use per day (in kWh/day) for cooktop types:
+
+| Location                             | OT    | NSW   | ACT   | NT    | QLD   | SA    | TAS   | VIC   | WA    |
+|-------------------------------------|-------|-------|--------|--------|--------|--------|--------|--------|--------|
+| Electric resistance                  | 0.94  | 0.95  | 0.88   | 0.99   | 0.93   | 1.00   | 1.00   | 0.92   | 0.97   |
+| Electric induction                   | 0.85  | 0.86  | 0.80   | 0.90   | 0.84   | 0.91   | 0.91   | 0.83   | 0.87   |
+| Natural gas                          | 2.20  | 2.21  | 2.07   | 2.32   | 2.17   | 2.35   | 2.34   | 2.14   | 2.26   |
+| LPG                                  | 2.20  | 2.21  | 2.07   | 2.32   | 2.17   | 2.35   | 2.34   | 2.14   | 2.26   |
 
 #### 3.1.5 Other appliances
 
-For other ubiquitous appliances around the home, we assume they are all electric and use the following values:
+For other ubiquitous appliances around the home, we assume they are all electric and use the following values (in kWh/day):
 
-| Other Appliance Type                                  | Energy Use (kWh/day) |
-|-------------------------------------------------------|----------------------|
-| Other electronics (lights, laundry, IT, entertainment) | 4.05                 |
-| Other cooking (oven, microwave, refrigeration)        | 2.85                 |
-| Space cooling (fans, aircon)                          | 0.34                 |
+| Space cooling                                         | OT    | NSW   | ACT   | NT    | QLD   | SA    | TAS   | VIC   | WA    |
+|-----------------------------------------------------|-------|-------|--------|--------|--------|--------|--------|--------|--------|
+| Heat pump                                            | 0.94  | 0.77  | 0.74   | 7.58   | 1.89   | 0.63   | 0.09   | 0.10   | 1.65   |
+
+| Other electronics                                     | OT    | NSW   | ACT   | NT    | QLD   | SA    | TAS   | VIC   | WA    |
+|-----------------------------------------------------|-------|-------|--------|--------|--------|--------|--------|--------|--------|
+| Washers and dryers                                   | 0.44  | 0.44  | 0.42   | 0.46   | 0.44   | 0.46   | 0.47   | 0.44   | 0.45   |
+| Lighting                                             | 0.91  | 0.91  | 0.87   | 0.95   | 0.90   | 0.96   | 0.96   | 0.90   | 0.93   |
+| Other appliances                                     | 3.86  | 3.97  | 3.89   | 4.11   | 3.75   | 3.79   | 3.78   | 3.87   | 3.76   |
+
+| Other cooking                                         | OT    | NSW   | ACT   | NT    | QLD   | SA    | TAS   | VIC   | WA    |
+|-----------------------------------------------------|-------|-------|--------|--------|--------|--------|--------|--------|--------|
+| Refrigeration                                        | 2.06  | 2.07  | 1.93   | 2.17   | 2.03   | 2.21   | 2.22   | 2.01   | 2.10   |
+| Dishwashers                                          | 0.30  | 0.30  | 0.28   | 0.31   | 0.30   | 0.32   | 0.32   | 0.29   | 0.31   |
+| Microwave                                            | 0.30  | 0.30  | 0.29   | 0.32   | 0.30   | 0.32   | 0.32   | 0.30   | 0.31   |
+| Ovens                                                | 0.34  | 0.34  | 0.33   | 0.36   | 0.34   | 0.36   | 0.37   | 0.34   | 0.35   |
+| Uprights                                             | 0.39  | 0.39  | 0.37   | 0.41   | 0.38   | 0.41   | 0.42   | 0.38   | 0.40   |
+
+| Pool equipment                                        | OT    | NSW   | ACT   | NT    | QLD   | SA    | TAS   | VIC   | WA    |
+|-----------------------------------------------------|-------|-------|--------|--------|--------|--------|--------|--------|--------|
+| Electric                                             | 0.67  | 0.74  | 0.24   | 1.75   | 1.00   | 0.49   | 0.25   | 0.35   | 0.87   |
+| Natural gas                                          | 0.25  | 0.27  | 0.09   | 0.65   | 0.37   | 0.18   | 0.09   | 0.13   | 0.33   |
 
 ### 3.2 Scaling appliance energy use by occupancy
 
@@ -115,7 +104,7 @@ Given that much of our energy consumption rates for each household appliances wa
 
 #### 3.2.1 Data collection
 
-We used electricity consumption numbers from data collected by the Australian Energy Regulator in their [Electricity and Gas consumption benchmarks for residential customers 2020 study](https://www.aer.gov.au/industry/registers/resources/guidelines/electricity-and-gas-consumption-benchmarks-residential-customers-2020). From the [Frontier Economics - Simple electricity and gas benchmarks - From June 2021](https://www.aer.gov.au/documents/frontier-economics-simple-electricity-and-gas-benchmarks-june-2021) data sheet, on the "Climate zone 6" sheet (Mild temperate, such as urban Melbourne, Adelaide Hills, Ulladulla, similar to NZ average; [see Table 1 on page 15](https://www.aer.gov.au/system/files/Residential%20energy%20consumption%20benchmarks%20-%209%20December%202020_0.pdf)), we averaged across all states and seasons, and we found the following electricity consumption and ratios.
+We used electricity consumption numbers from data collected by the Australian Energy Regulator in their [Electricity and Gas consumption benchmarks for residential customers 2020 study](https://www.aer.gov.au/industry/registers/resources/guidelines/electricity-and-gas-consumption-benchmarks-residential-customers-2020). From the [Frontier Economics - Simple electricity and gas benchmarks - From June 2021](https://www.aer.gov.au/documents/frontier-economics-simple-electricity-and-gas-benchmarks-june-2021) data sheet, on the "Climate zone 6" sheet (Mild temperate, such as urban Melbourne, Adelaide Hills, Ulladulla; [see Table 1 on page 15](https://www.aer.gov.au/system/files/Residential%20energy%20consumption%20benchmarks%20-%209%20December%202020_0.pdf)), we averaged across all states and seasons, and we found the following electricity consumption and ratios.
 
 _Table 1: Energy consumption by household size ([Source](https://www.aer.gov.au/documents/frontier-economics-simple-electricity-and-gas-benchmarks-june-2021))_
 | Household Size | Average Electricity Use per Season (kWh) | Ratio |
@@ -188,19 +177,26 @@ Table 2: Scaling factors for energy consumption based on occupancy
 
 We derive average vehicle energy use through the [EECA Energy End Use Database](https://www.eeca.govt.nz/insights/data-tools/energy-end-use-database/) for 2019. We use data from 2019 for vehicles, as this is before COVID lockdowns and the database for vehicles had not been updated for 2022 onwards when our analysis was completed. The assumption made here is that New Zealanders drive similar amounts per year today as they did in 2019.
 
-| Vehicle type | Energy use (kWh/day) |
-|--------------|----------------------|
-| Petrol       | 31.4                |
-| Diesel       | 22.8                |
-| Electric     | 7.324               |
+Energy use (in kWh/day) for different vehicle types:
+| Vehicle Type | OT  | NSW  | ACT  | NT   | QLD  | SA   | TAS  | VIC  | WA   |
+| ------------ | --- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| Petrol       | 36  | 36.7 | 33.5 | 38.6 | 37.2 | 33.2 | 33.6 | 35.9 | 35.8 |
+| Diesel       | 28  | 29   | 26   | 30   | 29   | 26   | 26   | 28   | 28   |
+| Electric     | 9.3 | 9.4  | 8.6  | 9.9  | 9.6  | 8.5  | 8.6  | 9.2  | 9.2  |
 
 Plug-in hybrids are assumed to be 60% petrol and 40% electric, while hybrids are considered to be 70% petrol and 30% electric.
 
-We scale this average energy use by each vehicle's stated usage. The average New Zealand car drives 10,950 km, rounded to 210 km per week, taken from 2019 stats on light passenger and light commercial vehicles from the [Ministry of Transport's Annual Fleet Statistics](https://www.transport.govt.nz/statistics-and-insights/fleet-statistics/annual-fleet-statistics/). We use this to scale the energy usage per vehicle. For example, if a petrol vehicle's mileage is 300 kms/week, then its energy usage would be:
+We scale this average energy use by each vehicle's stated usage. The average New Zealand car drives 10,950 km, rounded to 210 km per week, taken from 2019 stats on light passenger and light commercial vehicles from the [Ministry of Transport's Annual Fleet Statistics](https://www.transport.govt.nz/statistics-and-insights/fleet-statistics/annual-fleet-statistics/). 
 
-$31.4 \space\text{kWh/day} \times \frac{300\space\text{km/week}}{210\space\text{km/week}} \times 24\space\text{hours/day} \times 7\space\text{days/week}$.
+|         | OT   | NSW  | ACT  | NT   | QLD  | SA   | TAS  | VIC  | WA   |
+| ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| kms/day  | 36.4 | 36.2 | 35.1 | 35.9 | 36.9 | 35.0 | 33.1 | 38.0 | 33.8 |
 
-The dropdown options for vehicle usage in our [household calculator frontend app](https://github.com/rewiring-nz/household-calculator-app/) are `Low (<100 km/wk)`, `Medium (100-300 km/wk)`, and `High (300+ km/wk)`. These options correspond to values `50 km/wk`, `210 km/wk` (the national average), and `400 km/wk` respectively.
+We use this to scale the energy usage per vehicle. For example, in New South Wales, if a petrol vehicle's mileage is 300 kms/week, then its energy usage would be:
+
+$36.7 \space\text{kWh/day} \times \frac{300\space\text{km/week}}{(36.2 \times 7)\space\text{km/week}} \times 24\space\text{hours/day} \times 7\space\text{days/week}$.
+
+The dropdown options for vehicle usage in our [household calculator frontend app](https://github.com/rewiring-nz/household-calculator-app/) are `Low (<100 km/wk)`, `Medium (100-300 km/wk)`, and `High (300+ km/wk)`. These options correspond to values `50 km/wk`, `255 km/wk` (the national average), and `400 km/wk` respectively.
 
 ### 3.4 Solar
 
@@ -222,34 +218,9 @@ We assume the following solar capacity factors $C_{loc}$ per region:
 > [!NOTE]
 > These are conservative, static estimates of solar capacity factor. They are likely to increase over the years due to technology advancements, as it has rapidly in recent history.
 
-| Region                 | Solar capacity factor (%) |
-|------------------------|---------------------------|
-| Northland             | 15.5%                     |
-| Auckland North        | 15.5%                     |
-| Auckland Central      | 15.5%                     |
-| Auckland East         | 15.5%                     |
-| Auckland West         | 15.5%                     |
-| Auckland South        | 15.5%                     |
-| Waikato               | 15.5%                     |
-| Bay of Plenty         | 15.5%                     |
-| Gisborne              | 15.0%                     |
-| Hawkes Bay            | 15.0%                     |
-| Taranaki              | 15.0%                     |
-| Manawatu Wanganui     | 15.0%                     |
-| Wellington            | 14.9%                     |
-| Tasman                | 15.0%                     |
-| Nelson                | 15.5%                     |
-| Marlborough           | 15.0%                     |
-| West Coast            | 15.0%                     |
-| Canterbury            | 14.3%                     |
-| Otago                 | 12.5%                     |
-| Southland             | 12.5%                     |
-| Stewart Island        | 12.5%                     |
-| Chatham Islands       | 12.5%                     |
-| Great Barrier Island  | 15.0%                     |
-| Overseas              | 15.0%                     |
-| Other                 | 15.0%                     |
-
+|                       | OT | NSW   | ACT   | NT    | QLD   | SA    | TAS   | VIC   | WA    |
+| --------------------- | --------- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
+| Solar capacity factor | 17.1%     | 16.3% | 16.3% | 19.0% | 18.7% | 17.9% | 15.9% | 15.4% | 21.0% |
 ### 3.5 Battery
 
 The formula for calculating battery capacity per day is as follows:
@@ -270,14 +241,14 @@ We assume that all the electricity stored in the battery is from solar. The mode
 
 To calculate emissions, we take the energy consumption from the various machines and their fuel types, and multiply these by the emissions factors. The emissions factors are taken from the Ministry for the Environment's [Measuring emissions: A guide for organisations (2023)](https://environment.govt.nz/assets/publications/Measuring-Emissions-Guidance_EmissionFactors_Summary_2023_ME1781.pdf).
 
-| Energy Type   | Emissions Factor (kgCO₂e/kWh) |
-|---------------|-------------------------------|
-| Electricity   | 0.074                         |
-| Natural Gas   | 0.201                         |
-| LPG           | 0.219                         |
-| Wood          | 0.016                         |
-| Petrol        | 0.258                         |
-| Diesel        | 0.253                         |
+| Emissions factors (kgCO₂e/kWh)         | OT | NSW  | ACT  | NT   | QLD  | SA   | TAS  | VIC  | WA   |
+| -------------------------- | --------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| Grid  | 0.77      | 0.79 | 0.79 | 0.57 | 0.80 | 0.35 | 0.16 | 0.96 | 0.63 |
+| Natural Gas        | 0.19      | 0.19 | 0.19 | 0.19 | 0.19 | 0.19 | 0.19 | 0.19 | 0.19 |
+| Petrol     | 0.24      | 0.24 | 0.24 | 0.24 | 0.24 | 0.24 | 0.24 | 0.24 | 0.24 |
+| Diesel     | 0.25      | 0.25 | 0.25 | 0.25 | 0.25 | 0.25 | 0.25 | 0.25 | 0.25 |
+| Wood       | 0.40      | 0.40 | 0.40 | 0.40 | 0.40 | 0.40 | 0.40 | 0.40 | 0.40 |
+| LPG                        | 0.22      | 0.22 | 0.22 | 0.22 | 0.22 | 0.22 | 0.22 | 0.22 | 0.22 |
 
 To calculate emissions savings, we simply take the difference between the current and electrified household's total emissions.
 
@@ -331,18 +302,52 @@ Our opex calculations for daily, weekly, and yearly savings use 2024 prices, whi
 
 We base the rate of inflation on the New Zealand CPI history from 2000 to 2024 at 2.56%. We set future product price base inflation at 2%. The real inflation rates used for energy are the nominal value minus the All CPI groups rate over the same period of 2.55% pa (All Groups CPI). The specific rate of inflation for each fuel type, alongside today's fixed & volume costs versus the average over the next 15 years, can be found in the table below. 
 
-Table 1: Energy prices
+Energy prices:
 
-| Fuel type                | Fixed costs in 2024 ($/yr) | Volume costs in 2024 ($/kWh) | Rate of Inflation (Real) | Average fixed costs over next 15 years ($/yr) | Average volume cost over next 15 years ($/kWh) |
-|--------------------------|---------------------------|------------------------------|---------------------------|-----------------------------------------------|-----------------------------------------------|
-| Gas                     | 689.22675                | 0.118                      | 2.00%                     | 794.48                                     | 0.13602                                       |
-| LPG                     | 69.00                    | 0.25452                      | 2.00%                     | 79.537                                      | 0.29339                                       |
-| Petrol                  | -                        | 0.28884                      | 2.73%                     | -                                             | 0.35125                                       |
-| Diesel                  | -                        | 0.19679                      | 2.73%                     | -                                             | 0.23931                                       |
-| Wood                    | -                        | 0.11250                      | 2.00%                     | -                                             | 0.12968                                       |
-| Electricity (standard)  | 767.7555                 | 0.26175                      | 1.14%                     | 831.99                                     | 0.28365                                       |
-| Electricity (off-peak)  | -                        | 0.17300                      | 1.14%                     | -                                             | 0.18747                                       |
-| Electricity (solar feed-back tariff) | -         | 0.135                        | 1.14%                     | -                                             | 0.14632                                       |
+### Cost per fuel kWh today ($/kWh)
+|           | OT      | NSW     | ACT      | NT       | QLD      | SA       | TAS      | VIC      | WA       |
+| -------------------- | ------- | ------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- |
+| Electricity volume   | $0.320  | $0.340  | $0.260   | $0.280   | $0.320   | $0.440   | $0.300   | $0.270   | $0.310   |
+| Electricity off peak | $0.211  | $0.220  | $0.170   | $0.190   | $0.210   | $0.290   | $0.200   | $0.180   | $0.210   |
+| Natural gas          | $0.146  | $0.153  | $0.159   | $0.146   | $0.209   | $0.202   | $0.194   | $0.133   | $0.115   |
+| LPG                  | $0.280  | $0.310  | $0.280   | $0.400   | $0.300   | $0.300   | $0.240   | $0.260   | $0.220   |
+| Wood                 | $0.130  | $0.140  | $0.094   | $0.151   | $0.151   | $0.111   | $0.067   | $0.110   | $0.140   |
+| Petrol               | $0.199  | $0.200  | $0.200   | $0.208   | $0.202   | $0.193   | $0.199   | $0.199   | $0.192   |
+| Diesel               | $0.180  | $0.180  | $0.180   | $0.200   | $0.180   | $0.180   | $0.180   | $0.180   | $0.170   |
+
+### Fixed costs per year ($/year)
+|           | OT      | NSW     | ACT      | NT       | QLD      | SA       | TAS      | VIC      | WA       |
+| -------------------- | ------- | ------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- |
+| Electricity          | $432    | $465    | $441.000 | $210.000 | $450.000 | $415.000 | $435.000 | $396.000 | $414.000 |
+| Natural gas          | $247    | $244    | $260.000 | $247     | $247.000 | $297.000 | $235.000 | $296.000 | $80.000  |
+| LPG                  | $95.47  | $96.00  | $96.000  | $105.000 | $95.000  | $99.000  | $96.000  | $96.000  | $90.000  |
+
+### Cost per fuel kWh average 15 years ($/kWh)
+|           | OT      | NSW     | ACT      | NT       | QLD      | SA       | TAS      | VIC      | WA       |
+| -------------------- | ------- | ------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- |
+| Electricity          | $0.39   | $0.41   | $0.300   | $0.280   | $0.550   | $0.540   | $0.360   | $0.310   | $0.380   |
+| Natural gas          | $0.19   | $0.19   | $0.21    | $0.19    | $0.25    | $0.25    | $0.26    | $0.22    | $0.18    |
+| LPG                  | $0.36   | $0.38   | $0.36    | $0.41    | $0.35    | $0.38    | $0.27    | $0.35    | $0.26    |
+| Wood                 | $0.17   | $0.17   | $0.12    | $0.16    | $0.18    | $0.14    | $0.08    | $0.15    | $0.17    |
+| Petrol               | $0.22   | $0.22   | $0.220   | $0.210   | $0.230   | $0.210   | $0.210   | $0.220   | $0.210   |
+| Diesel               | $0.20   | $0.20   | $0.190   | $0.200   | $0.200   | $0.190   | $0.190   | $0.200   | $0.190   |
+
+### Fixed costs per year avg 15 years ($/year)
+|           | OT      | NSW     | ACT      | NT       | QLD      | SA       | TAS      | VIC      | WA       |
+| -------------------- | ------- | ------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- |
+| Electricity          | $532.04 | $562.08 | $511.120 | $205.940 | $777.940 | $507.180 | $517.420 | $446.050 | $509.480 |
+| Natural gas          | $314.22 | $300.40 | $337.020 | $314.22  | $291.000 | $291.280 | $375.070 | $265.210 | $398.600 |
+| LPG                  | $121.53 | $118.16 | $124.580 | $108.220 | $112.170 | $125.030 | $108.120 | $129.280 | $108.540 |
+
+### Solar feedin tariff
+|           | OT      | NSW     | ACT      | NT       | QLD      | SA       | TAS      | VIC      | WA       |
+| -------------------- | ------- | ------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- |
+| Electricity          | $0.06   | $0.06   | $0.06    | $0.06    | $0.06    | $0.06    | $0.06    | $0.06    | $0.06    |
+
+### Solar feedin tariff avg 15 years
+|           | OT      | NSW     | ACT      | NT       | QLD      | SA       | TAS      | VIC      | WA       |
+| -------------------- | ------- | ------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- |
+| Electricity          | $0.08   | $0.10   | $0.12    | $0.10    | $0.12    | $0.09    | $0.11    | $0.06    | $0.04    |
 
 The battery export feed-in-tariff is assumed to be the same as the solar feed-in-tariff. This is considered conservative, as the battery can feed in at peak times when electricity prices are significantly higher, and where some EDBs and retailers provide higher reward for peak feed-in. 
 
@@ -350,21 +355,9 @@ The battery export feed-in-tariff is assumed to be the same as the solar feed-in
 > In order to take into account the impact of the battery, we use an adjusted grid price that reflects the proportion of electricity that could be purchased off peak. Please refer to the logic in [get_effective_grid_price()](src/savings/opex/calculate_opex.py) for more details.
 
 
-### 5.6 Road User Charges
+## 5 Replacement & Upfront Costs
 
-We use current Road User Charges (RUCs) without taking inflation into account:
-
-- Electric: $76 per year per 1000km
-- Plug-in hybrid: $38 per year per 1000km
-- Hybrid: $0 per year per 1000km
-- Petrol: $0 per year per 1000km
-- Diesel: $76 per year per 1000km
-
-We have not yet included vehicle servicing costs, which tend to be lower for EVs than fossil fuel machines.
-
-## 6 Replacement & Upfront Costs
-
-### 6.1 Appliances
+### 5.1 Appliances
 
 Appliance replacement costs come from a comparison of over 100 different quotes for appliance costs, sourced both online and direct from installers. An average capital cost and average install cost is used for each individual appliance. The scope of the appliance cost comparison aims to compare products that are not the cheapest possible product, nor the most expensive, as appliance costs can vary significantly. The aim of the comparison was to create an assumed common cost for each option, in the middle of the cost spectrum. 
 
@@ -372,25 +365,26 @@ Appliance installation specific costing is scarce, and we acknowledge the need f
    
 The following appliance price and installation cost are assumed:
 
+
 | Appliance     | Fuel type                   | Item price ($) | Install cost ($) |
 |---------------|-----------------------------|----------------|------------------|
-| Space heater  | Electricity (heat pump)     | 2728           | 1050             |
-| Water heater  | Electricity (heat pump)     | 4678           | 2321             |
-| Cooktop       | Electricity (induction)     | 1430           | 1265             |
+| Space heater  | Electricity (heat pump)     | 1700           | 900             |
+| Water heater  | Electricity (heat pump)     | 3000           | 0             |
+| Cooktop       | Electricity (induction)     | 1400           | 600             |
 
-### 6.2 Vehicles
+### 5.2 Vehicles
 
 The model does not provide upfront costs for vehicles, although the calculator app provides a general range to give an indication of replacing fossil fuel vehicles with EVs. The range is based on a comparison of popular New Zealand petrol vehicles and their prices, compared to a similar EV option and its price, using pricing data from vehicle manufacturer websites accessed in August 2024. Clean car rebate is not included as it was phased out in 2024. 
 
-### 6.3 Solar
+### 5.3 Solar
 
 The upfront cost of installing solar is estimated at $2277.78/kW using a combination of 2023 data from the Sustainable Energy Association of New Zealand (SEANZ) and direct surveys from installers. This is essentially $2000/kW plus the cost of an inverter which lasts 15 years.  Inverter replacement costs are assumed at $2,500. 
 
-### 6.4 Batteries
+### 5.4 Batteries
 
 Battery upfront costs are assumed at $1000/kWh, from multiple surveys of 2023 installation costs in New Zealand direct from battery installers, in addition to comparison of available online prices for batteries in New Zealand.
 
-## 7 Recommendations
+## 6 Recommendations
 
 The API's recommendation for the household's next steps is currently a simple heuristic. It simply takes the first recommendation from a prioritised list, that the household currently does not have. The list has been prioritised based on Rewiring's prior knowledge and research of what upgrades typically bring the most savings:
 

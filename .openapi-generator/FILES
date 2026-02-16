@@ -12,6 +12,9 @@ openapi_client/docs/Household.md
 openapi_client/docs/LocationEnum.md
 openapi_client/docs/Opex.md
 openapi_client/docs/OpexValues.md
+openapi_client/docs/OpexWeekly.md
+openapi_client/docs/OpexWeeklyFixedCostsByFuelType.md
+openapi_client/docs/OpexWeeklyOtherEnergyCostsByFuelType.md
 openapi_client/docs/Recommendation.md
 openapi_client/docs/RecommendationActionEnum.md
 openapi_client/docs/Savings.md
@@ -32,6 +35,9 @@ openapi_client/models/household.py
 openapi_client/models/location_enum.py
 openapi_client/models/opex.py
 openapi_client/models/opex_values.py
+openapi_client/models/opex_weekly.py
+openapi_client/models/opex_weekly_fixed_costs_by_fuel_type.py
+openapi_client/models/opex_weekly_other_energy_costs_by_fuel_type.py
 openapi_client/models/recommendation.py
 openapi_client/models/recommendation_action_enum.py
 openapi_client/models/savings.py
@@ -51,6 +57,9 @@ openapi_client/test/test_household.py
 openapi_client/test/test_location_enum.py
 openapi_client/test/test_opex.py
 openapi_client/test/test_opex_values.py
+openapi_client/test/test_opex_weekly.py
+openapi_client/test/test_opex_weekly_fixed_costs_by_fuel_type.py
+openapi_client/test/test_opex_weekly_other_energy_costs_by_fuel_type.py
 openapi_client/test/test_recommendation.py
 openapi_client/test/test_recommendation_action_enum.py
 openapi_client/test/test_savings.py

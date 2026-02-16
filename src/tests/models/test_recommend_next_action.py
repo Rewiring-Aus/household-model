@@ -22,7 +22,7 @@ from openapi_client.models.vehicle_fuel_type_enum import VehicleFuelTypeEnum
 from tests.mocks import mock_vehicle_petrol, mock_vehicle_ev
 
 base_household = {
-    "location": LocationEnum.AUCKLAND_CENTRAL,
+    "location": LocationEnum.NEW_SOUTH_WALES,
     "occupancy": 4,
     "space_heating": SpaceHeatingEnum.WOOD,
     "water_heating": WaterHeatingEnum.GAS,
@@ -54,7 +54,7 @@ class TestRecommendNextAction:
         )
         expected = Recommendation(
             action=RecommendationActionEnum.SOLAR,
-            url="https://www.rewiring.nz/electrification-guides/solar",
+            url="https://www.rewiringaustralia.org/report/factsheet-for-solar",
         )
         result = recommend_next_action(household)
         assert result == expected
@@ -68,7 +68,7 @@ class TestRecommendNextAction:
         )
         expected = Recommendation(
             action=RecommendationActionEnum.VEHICLE,
-            url="https://www.rewiring.nz/electrification-guides/electric-cars",
+            url="https://www.rewiringaustralia.org/report/factsheet-for-electric-vehicles",
         )
         result = recommend_next_action(household)
         assert result == expected
@@ -82,7 +82,7 @@ class TestRecommendNextAction:
         )
         expected = Recommendation(
             action=RecommendationActionEnum.VEHICLE,
-            url="https://www.rewiring.nz/electrification-guides/electric-cars",
+            url="https://www.rewiringaustralia.org/report/factsheet-for-electric-vehicles",
         )
         result = recommend_next_action(household)
         assert result == expected
@@ -93,7 +93,7 @@ class TestRecommendNextAction:
         )
         expected = Recommendation(
             action=RecommendationActionEnum.SPACE_HEATING,
-            url="https://www.rewiring.nz/electrification-guides/space-heating-and-cooling",
+            url="https://www.rewiringaustralia.org/report/factsheet-for-space-heating",
         )
         result = recommend_next_action(household)
         assert result == expected
@@ -108,7 +108,7 @@ class TestRecommendNextAction:
         )
         expected = Recommendation(
             action=RecommendationActionEnum.SPACE_HEATING,
-            url="https://www.rewiring.nz/electrification-guides/space-heating-and-cooling",
+            url="https://www.rewiringaustralia.org/report/factsheet-for-space-heating",
         )
         result = recommend_next_action(household)
         assert result == expected
@@ -124,7 +124,7 @@ class TestRecommendNextAction:
         )
         expected = Recommendation(
             action=RecommendationActionEnum.WATER_HEATING,
-            url="https://www.rewiring.nz/electrification-guides/water-heating",
+            url="https://www.rewiringaustralia.org/report/factsheet-for-water-heating",
         )
         result = recommend_next_action(household)
         assert result == expected
@@ -143,7 +143,7 @@ class TestRecommendNextAction:
         )
         expected = Recommendation(
             action=RecommendationActionEnum.COOKING,
-            url="https://www.rewiring.nz/electrification-guides/cooktops",
+            url="https://www.rewiringaustralia.org/report/factsheet-for-cooktops",
         )
         result = recommend_next_action(household)
         assert result == expected
@@ -161,7 +161,7 @@ class TestRecommendNextAction:
         )
         expected = Recommendation(
             action=RecommendationActionEnum.BATTERY,
-            url="https://www.rewiring.nz/electrification-guides/home-batteries",
+            url="https://www.rewiringaustralia.org/report/factsheet-for-home-batteries",
         )
         result = recommend_next_action(household)
         assert result == expected
@@ -180,7 +180,7 @@ class TestRecommendNextAction:
         )
         expected = Recommendation(
             action=RecommendationActionEnum.VEHICLE,
-            url="https://www.rewiring.nz/electrification-guides/electric-cars",
+            url="https://www.rewiringaustralia.org/report/factsheet-for-electric-vehicles",
         )
         result = recommend_next_action(household)
         assert result == expected
@@ -188,7 +188,7 @@ class TestRecommendNextAction:
     def test_it_keeps_electrifying_vehicles_until_all_electric(self):
         expected = Recommendation(
             action=RecommendationActionEnum.VEHICLE,
-            url="https://www.rewiring.nz/electrification-guides/electric-cars",
+            url="https://www.rewiringaustralia.org/report/factsheet-for-electric-vehicles",
         )
         for i in range(5):
             assert (

@@ -8,6 +8,8 @@ Name | Type | Description | Notes
 **opex** | [**Opex**](Opex.md) |  | [optional] 
 **upfront_cost** | [**UpfrontCost**](UpfrontCost.md) |  | [optional] 
 **recommendation** | [**Recommendation**](Recommendation.md) |  | [optional] 
+**opex_before** | [**OpexWeekly**](OpexWeekly.md) |  | [optional] 
+**opex_after** | [**OpexWeekly**](OpexWeekly.md) |  | [optional] 
 
 ## Example
 

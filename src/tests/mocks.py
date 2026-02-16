@@ -49,7 +49,7 @@ mock_battery = Battery(has_battery=False, capacity=13, install_battery=False)
 
 mock_household = Household(
     **{
-        "location": LocationEnum.AUCKLAND_CENTRAL,
+        "location": LocationEnum.NEW_SOUTH_WALES,
         "occupancy": 4,
         "space_heating": SpaceHeatingEnum.WOOD,
         "water_heating": WaterHeatingEnum.GAS,
@@ -65,7 +65,7 @@ mock_household = Household(
 
 mock_household_electrified = Household(
     **{
-        "location": LocationEnum.AUCKLAND_CENTRAL,
+        "location": LocationEnum.NEW_SOUTH_WALES,
         "occupancy": 4,
         "space_heating": SpaceHeatingEnum.ELECTRIC_HEAT_PUMP,
         "water_heating": WaterHeatingEnum.ELECTRIC_HEAT_PUMP,
@@ -121,5 +121,5 @@ mock_upfront_cost = UpfrontCost(
 
 mock_recommendation = Recommendation(
     action=RecommendationActionEnum("SPACE_HEATING"),
-    url="https://www.rewiring.nz/electrification-guides/space-heating-and-cooling",
+    url="https://www.rewiringaustralia.org/report/factsheet-for-space-heating",
 )

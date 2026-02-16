@@ -71,6 +71,8 @@ def electrify_space_heating(current: SpaceHeatingEnum) -> SpaceHeatingEnum:
     """
     # Doesn't actually need current heating, because it will always replace with heat pump.
     # If we move away from only recommending heat pumps, we will need to update the scaling factor in calculations (e.g. the hard-coded use of N_HEAT_PUMPS_NEEDED_PER_LOCATION rather than it being dynamic to the heater type that is being installed)
+    if current == SpaceHeatingEnum.NONE:
+        return current
     return SpaceHeatingEnum.ELECTRIC_HEAT_PUMP
 
 

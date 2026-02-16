@@ -1,10 +1,7 @@
 import json
-from typing import List, Optional
-from constants.machines.vehicles import RUCS
 from constants.solar import SOLAR_FEEDIN_TARIFF_2024, SOLAR_FEEDIN_TARIFF_AVG_15_YEARS
-from constants.utils import DAYS_PER_YEAR, WEEKS_PER_YEAR, PeriodEnum
+from constants.utils import PeriodEnum
 from openapi_client.models.location_enum import LocationEnum
-from openapi_client.models.vehicle import Vehicle
 from params import (
     OPERATIONAL_LIFETIME,
 )
@@ -132,21 +129,24 @@ def get_total_bills(
         electricity_consumption["consumed_from_grid"],
         electricity_consumption["consumed_from_battery"],
         period,
+        household.location,
     )
     print("\n\ngrid_volume_costs: ", grid_volume_costs)
 
-    other_energy_costs = get_other_energy_costs(other_energy_consumption, period)
+    other_energy_costs = get_other_energy_costs(
+        other_energy_consumption, period, household.location
+    )
     print("other_energy_costs: ", other_energy_costs)
 
     fixed_costs = get_fixed_costs(household, period)
     print("fixed_costs: ", fixed_costs)
 
-    rucs = get_rucs(household.vehicles, period)
-    print("rucs: ", rucs)
+    # rucs = get_rucs(household.vehicles, period)
+    # print("rucs: ", rucs)
 
     # Savings
     revenue_from_solar_export = get_solar_feedin_tariff(
-        electricity_consumption["exported_to_grid"], period
+        electricity_consumption["exported_to_grid"], period, household.location
     )
     print("revenue_from_solar_export: ", revenue_from_solar_export)
     print("\n\n")
@@ -155,20 +155,20 @@ def get_total_bills(
         grid_volume_costs
         + other_energy_costs
         + fixed_costs
-        + rucs
+        # + rucs
         - revenue_from_solar_export
     )
 
 
 def get_grid_volume_cost(
-    e_consumed_from_grid: float, e_from_battery: float, period: PeriodEnum
+    e_consumed_from_grid: float, e_from_battery: float, period: PeriodEnum, location: LocationEnum
 ) -> float:
-    grid_price = get_effective_grid_price(e_consumed_from_grid, e_from_battery, period)
+    grid_price = get_effective_grid_price(e_consumed_from_grid, e_from_battery, period, location)
     return e_consumed_from_grid * grid_price
 
 
 def get_effective_grid_price(
-    e_consumed_from_grid: float, e_from_battery: float, period: PeriodEnum
+    e_consumed_from_grid: float, e_from_battery: float, period: PeriodEnum, location: LocationEnum
 ) -> float:
     """Get the effective grid price
 
@@ -187,55 +187,55 @@ def get_effective_grid_price(
         float: the effective grid price
     """
     # TODO: Unit test
-    costs = (
-        COST_PER_FUEL_KWH_AVG_15_YEARS
-        if period == PeriodEnum.OPERATIONAL_LIFETIME
-        else COST_PER_FUEL_KWH_TODAY
-    )
-    grid_price = costs[FuelTypeEnum.ELECTRICITY]["volume_rate"]
+
+    if period == PeriodEnum.OPERATIONAL_LIFETIME:
+        grid_price = COST_PER_FUEL_KWH_AVG_15_YEARS[FuelTypeEnum.ELECTRICITY][location]
+    else:
+        grid_price = COST_PER_FUEL_KWH_TODAY[FuelTypeEnum.ELECTRICITY][location]["volume_rate"]
+
     if e_from_battery > 0:
         if e_from_battery >= e_consumed_from_grid:
             # All energy is from the battery, which could be charged at off peak price
-            grid_price = costs[FuelTypeEnum.ELECTRICITY]["off_peak"]
+                grid_price = COST_PER_FUEL_KWH_TODAY[FuelTypeEnum.ELECTRICITY][location]["off_peak"]
         if e_from_battery < e_consumed_from_grid:
             # A proportion of the energy consumed from the grid was bought at off peak price
             percent_of_consumed_from_battery = e_from_battery / e_consumed_from_grid
             grid_price = (
-                costs[FuelTypeEnum.ELECTRICITY]["off_peak"]
+                COST_PER_FUEL_KWH_TODAY[FuelTypeEnum.ELECTRICITY][location]["off_peak"]
                 * percent_of_consumed_from_battery
             ) + (
-                costs[FuelTypeEnum.ELECTRICITY]["volume_rate"]
+                COST_PER_FUEL_KWH_TODAY[FuelTypeEnum.ELECTRICITY][location]["volume_rate"]
                 * (1 - percent_of_consumed_from_battery)
             )
     return grid_price
 
 
-def get_rucs(vehicles: List[Vehicle], period: PeriodEnum = PeriodEnum.DAILY) -> float:
-    """Calculates the RUCs for a list of vehicles weighted by kms per year
+# def get_rucs(vehicles: List[Vehicle], period: PeriodEnum = PeriodEnum.DAILY) -> float:
+#     """Calculates the RUCs for a list of vehicles weighted by kms per year
 
-    Args:
-        vehicles (List[Vehicle]): the list of vehicles
-        period (PeriodEnum, optional): the period over which to calculate the RUCs.
+#     Args:
+#         vehicles (List[Vehicle]): the list of vehicles
+#         period (PeriodEnum, optional): the period over which to calculate the RUCs.
 
-    Returns:
-        float: total NZD emitted from vehicles over given period to 2dp
-    """
-    total_rucs_daily = 0
-    for vehicle in vehicles:
-        rucs_daily = (
-            RUCS[vehicle.fuel_type]  # $/yr/1000km
-            * vehicle.kms_per_week  # km/wk
-            * WEEKS_PER_YEAR  # wk/yr
-            / 1000
-            / DAYS_PER_YEAR  # days/yr
-        )
-        # Convert to given period
-        total_rucs_daily += rucs_daily
-    total_rucs = scale_daily_to_period(total_rucs_daily, period)
-    return round(total_rucs, 2)
+#     Returns:
+#         float: total NZD emitted from vehicles over given period to 2dp
+#     """
+#     total_rucs_daily = 0
+#     for vehicle in vehicles:
+#         rucs_daily = (
+#             RUCS[vehicle.fuel_type]  # $/yr/1000km
+#             * vehicle.kms_per_week  # km/wk
+#             * WEEKS_PER_YEAR  # wk/yr
+#             / 1000
+#             / DAYS_PER_YEAR  # days/yr
+#         )
+#         # Convert to given period
+#         total_rucs_daily += rucs_daily
+#     total_rucs = scale_daily_to_period(total_rucs_daily, period)
+#     return round(total_rucs, 2)
 
 
-def get_solar_feedin_tariff(e_exported: float, period: PeriodEnum) -> float:
+def get_solar_feedin_tariff(e_exported: float, period: PeriodEnum, location: LocationEnum) -> float:
     if period == PeriodEnum.OPERATIONAL_LIFETIME:
-        return e_exported * SOLAR_FEEDIN_TARIFF_AVG_15_YEARS
+        return e_exported * SOLAR_FEEDIN_TARIFF_AVG_15_YEARS[location]
     return e_exported * SOLAR_FEEDIN_TARIFF_2024

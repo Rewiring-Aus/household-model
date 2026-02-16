@@ -8,37 +8,46 @@ MACHINE_CATEGORY_TO_SELF_CONSUMPTION_RATE = {
 }
 
 # $/kWh
-SOLAR_FEEDIN_TARIFF_2024 = 0.135
-SOLAR_FEEDIN_TARIFF_AVG_15_YEARS = 0.14632  # real pricing
+
+# 'Location data'!B120
+SOLAR_FEEDIN_TARIFF_2024 = 0.06
+
+# 'Forward pricing'!B121
+SOLAR_FEEDIN_TARIFF_AVG_15_YEARS = {
+    LocationEnum.VICTORIA: 0.06,
+    LocationEnum.NEW_SOUTH_WALES: 0.10,
+    LocationEnum.NORTHERN_TERRITORY: 0.10,
+    LocationEnum.AUSTRALIAN_CAPITAL_TERRITORY: 0.12,
+    LocationEnum.TASMANIA: 0.11,
+    LocationEnum.WESTERN_AUSTRALIA: 0.04,
+    LocationEnum.SOUTH_AUSTRALIA: 0.09,
+    LocationEnum.QUEENSLAND: 0.12,
+}
 
 # % of max capacity that it generates on average over 30 years, taking into account degradation
 SOLAR_AVG_DEGRADED_PERFORMANCE_30_YRS = 0.9308
 
 # Solar capacity factor
 SOLAR_CAPACITY_FACTOR = {
-    LocationEnum.NORTHLAND: 0.155,
-    LocationEnum.AUCKLAND_NORTH: 0.155,
-    LocationEnum.AUCKLAND_CENTRAL: 0.155,
-    LocationEnum.AUCKLAND_EAST: 0.155,
-    LocationEnum.AUCKLAND_WEST: 0.155,
-    LocationEnum.AUCKLAND_SOUTH: 0.155,
-    LocationEnum.WAIKATO: 0.155,
-    LocationEnum.BAY_OF_PLENTY: 0.155,
-    LocationEnum.GISBORNE: 0.15,
-    LocationEnum.HAWKES_BAY: 0.15,
-    LocationEnum.TARANAKI: 0.15,
-    LocationEnum.MANAWATU_WANGANUI: 0.15,
-    LocationEnum.WELLINGTON: 0.149,
-    LocationEnum.TASMAN: 0.15,
-    LocationEnum.NELSON: 0.155,
-    LocationEnum.MARLBOROUGH: 0.15,
-    LocationEnum.WEST_COAST: 0.15,
-    LocationEnum.CANTERBURY: 0.143,
-    LocationEnum.OTAGO: 0.125,
-    LocationEnum.SOUTHLAND: 0.125,
-    LocationEnum.STEWART_ISLAND: 0.125,
-    LocationEnum.CHATHAM_ISLANDS: 0.125,
-    LocationEnum.GREAT_BARRIER_ISLAND: 0.15,
-    LocationEnum.OVERSEAS: 0.15,
-    LocationEnum.OTHER: 0.15,
+    LocationEnum.VICTORIA: 0.1537,
+    LocationEnum.NEW_SOUTH_WALES: 0.1629,
+    LocationEnum.NORTHERN_TERRITORY: 0.1898,
+    LocationEnum.AUSTRALIAN_CAPITAL_TERRITORY: 0.1632,
+    LocationEnum.TASMANIA: 0.1586,
+    LocationEnum.WESTERN_AUSTRALIA: 0.2104,
+    LocationEnum.SOUTH_AUSTRALIA: 0.1788,
+    LocationEnum.QUEENSLAND: 0.1868,
 }
+
+# Takes into account the inverter
+SOLAR_COST_PER_KW = {
+    LocationEnum.VICTORIA: 792,
+    LocationEnum.NEW_SOUTH_WALES: 791,
+    LocationEnum.NORTHERN_TERRITORY: 1306,
+    LocationEnum.AUSTRALIAN_CAPITAL_TERRITORY: 821,
+    LocationEnum.TASMANIA: 949,
+    LocationEnum.WESTERN_AUSTRALIA: 882,
+    LocationEnum.SOUTH_AUSTRALIA: 805,
+    LocationEnum.QUEENSLAND: 811,
+}
+

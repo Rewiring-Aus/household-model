@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Household savings
-  version: 0.0.8
+  version: 0.0.4
   description: |-
     This is the API for a household savings model. You can provide details about a household's energy use, and receive information about the household's potential emissions & cost savings from electrifying their fossil fuel machines, as well as the upfront costs of switching.
 tags:
@@ -71,6 +71,10 @@ components:
           $ref: '#/components/schemas/UpfrontCost'
         recommendation:
           $ref: '#/components/schemas/Recommendation'
+        opexBefore:
+          $ref: '#/components/schemas/OpexWeekly'
+        opexAfter:
+          $ref: '#/components/schemas/OpexWeekly'
     Emissions:
       type: object
       properties:
@@ -93,6 +97,40 @@ components:
           $ref: '#/components/schemas/OpexValues'
         operationalLifetime:
           $ref: '#/components/schemas/OperationalLifetime'
+    OpexWeekly:
+      type: object
+      properties:
+        gridVolumeCosts:
+          type: number
+        otherEnergyCosts:
+          type: number
+        otherEnergyCostsByFuelType:
+          type: object
+          properties:
+            gas:
+              type: number
+            lpg:
+              type: number
+            wood:
+              type: number
+            petrol:
+              type: number
+            diesel:
+              type: number
+        fixedCosts:
+          type: number
+        fixedCostsByFuelType:
+          type: object
+          properties:
+            gas:
+              type: number
+            lpg:
+              type: number
+            electricity:
+              type: number
+        revenueFromSolarExport:
+          type: number
+        
     UpfrontCost:
       description: The estimated total NZD cost of electrifying the household
       type: object      
@@ -214,31 +252,14 @@ components:
       type: string
       description: Where the household is located
       enum:
-        - NORTHLAND
-        - AUCKLAND_NORTH
-        - AUCKLAND_CENTRAL
-        - AUCKLAND_EAST
-        - AUCKLAND_WEST
-        - AUCKLAND_SOUTH
-        - WAIKATO
-        - BAY_OF_PLENTY
-        - GISBORNE
-        - HAWKES_BAY
-        - TARANAKI
-        - MANAWATU_WANGANUI
-        - WELLINGTON
-        - TASMAN
-        - NELSON
-        - MARLBOROUGH
-        - WEST_COAST
-        - CANTERBURY
-        - OTAGO
-        - SOUTHLAND
-        - STEWART_ISLAND
-        - CHATHAM_ISLANDS
-        - GREAT_BARRIER_ISLAND
-        - OVERSEAS
-        - OTHER
+        - VICTORIA
+        - NEW_SOUTH_WALES
+        - NORTHERN_TERRITORY
+        - AUSTRALIAN_CAPITAL_TERRITORY
+        - TASMANIA
+        - WESTERN_AUSTRALIA
+        - SOUTH_AUSTRALIA
+        - QUEENSLAND
     SpaceHeatingEnum:
       description: The main method of space heating
       type: string
@@ -249,6 +270,7 @@ components:
         - DIESEL
         - ELECTRIC_RESISTANCE
         - ELECTRIC_HEAT_PUMP
+        - NONE
     WaterHeatingEnum:
       description: The method of water heating
       type: string

@@ -59,24 +59,24 @@ class TestSumEnergyForFuelType:
 
 
 class TestGetEGeneratedFromSolar:
-    def test_calculates_generation_correctly_for_akl_central(self):
+    def test_calculates_generation_correctly_for_northern_territory(self):
         solar = Solar(has_solar=True, size=6.6)
-        expected_generation = solar.size * 0.155 * 8766 * 0.9308
+        expected_generation = solar.size * 0.1898 * 8766 * 0.9308
 
-        result = get_e_generated_from_solar(solar, LocationEnum.AUCKLAND_CENTRAL)
+        result = get_e_generated_from_solar(solar, LocationEnum.NORTHERN_TERRITORY)
 
-        assert result == expected_generation
+        assert result == pytest.approx(expected_generation)
 
     def test_different_locations_give_different_results(self):
         solar = Solar(has_solar=True, size=5.0)
         assert get_e_generated_from_solar(
-            solar, LocationEnum.AUCKLAND_CENTRAL
-        ) > get_e_generated_from_solar(solar, LocationEnum.SOUTHLAND)
+            solar, LocationEnum.NORTHERN_TERRITORY
+        ) > get_e_generated_from_solar(solar, LocationEnum.NEW_SOUTH_WALES)
 
     def test_zero_solar_size_returns_zero(self):
         assert (
             get_e_generated_from_solar(
-                Solar(has_solar=True, size=0), LocationEnum.AUCKLAND_CENTRAL
+                Solar(has_solar=True, size=0), LocationEnum.NORTHERN_TERRITORY
             )
             == 0.0
         )
@@ -84,7 +84,7 @@ class TestGetEGeneratedFromSolar:
     def test_no_solar_returns_zero(self):
         assert (
             get_e_generated_from_solar(
-                Solar(has_solar=False, size=9), LocationEnum.AUCKLAND_CENTRAL
+                Solar(has_solar=False, size=9), LocationEnum.NORTHERN_TERRITORY
             )
             == 0.0
         )
@@ -93,15 +93,15 @@ class TestGetEGeneratedFromSolar:
         assert (
             get_e_generated_from_solar(
                 Solar(hasSolar=True, size=6.6, install_solar=None),
-                LocationEnum.AUCKLAND_CENTRAL,
+                LocationEnum.NORTHERN_TERRITORY,
             )
-            == 6.6 * 0.155 * 8766 * 0.9308
+            == pytest.approx(6.6 * 0.1898 * 8766 * 0.9308)
         )
 
     def test_larger_system_generates_proportionally_more(self):
         small_size = Solar(has_solar=True, size=5.0)
         large_size = Solar(has_solar=True, size=10.0)
-        location = LocationEnum.OTAGO
+        location = LocationEnum.NORTHERN_TERRITORY
 
         small_generation = get_e_generated_from_solar(small_size, location)
         large_generation = get_e_generated_from_solar(large_size, location)
@@ -110,23 +110,23 @@ class TestGetEGeneratedFromSolar:
 
     def test_period(self):
         solar = Solar(has_solar=True, size=5.0)
-        location = LocationEnum.AUCKLAND_CENTRAL
+        location = LocationEnum.NORTHERN_TERRITORY
 
         assert (
             get_e_generated_from_solar(solar, location, PeriodEnum.DAILY)
-            == 5 * 0.155 * 0.9308 * 24
+            == pytest.approx(5 * 0.1898 * 0.9308 * 24)
         )
         assert (
             get_e_generated_from_solar(solar, location, PeriodEnum.WEEKLY)
-            == 5 * 0.155 * 0.9308 * 24 * 7
+            == pytest.approx(5 * 0.1898 * 0.9308 * 24 * 7)
         )
         assert (
             get_e_generated_from_solar(solar, location, PeriodEnum.YEARLY)
-            == 5 * 0.155 * 0.9308 * HOURS_PER_YEAR
+            == pytest.approx(5 * 0.1898 * 0.9308 * HOURS_PER_YEAR)
         )
         assert (
             get_e_generated_from_solar(solar, location, PeriodEnum.OPERATIONAL_LIFETIME)
-            == 5 * 0.155 * 0.9308 * HOURS_PER_YEAR * OPERATIONAL_LIFETIME
+            == pytest.approx(5 * 0.1898 * 0.9308 * HOURS_PER_YEAR * OPERATIONAL_LIFETIME)
         )
 
 

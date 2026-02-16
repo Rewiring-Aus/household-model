@@ -14,7 +14,7 @@ from constants.machines.vehicles import (
 )
 from constants.utils import PeriodEnum
 from openapi_client.models.location_enum import LocationEnum
-from savings.energy.scale_energy_by_location import scale_energy_by_location
+from openapi_client.models.space_heating_enum import SpaceHeatingEnum
 from savings.energy.scale_energy_by_occupancy import scale_energy_by_occupancy
 from utils.scale_daily_to_period import scale_daily_to_period
 
@@ -34,8 +34,10 @@ def get_total_energy_needs(
     location: LocationEnum,
 ) -> MachineEnergyNeeds:
     appliance_energy = get_total_appliance_energy(household, period, location)
-    vehicle_energy = get_vehicle_energy(household.vehicles, period)
-    other_energy = get_other_appliances_energy_per_period(household.occupancy, period)
+    vehicle_energy = get_vehicle_energy(household.vehicles, location, period)
+    other_energy = get_other_appliances_energy_per_period(
+        location, household.occupancy, period
+    )
     return {
         "appliances": appliance_energy,
         "vehicles": vehicle_energy,
@@ -46,8 +48,8 @@ def get_total_energy_needs(
 def get_energy_per_day(
     machine_type: MachineEnum,
     machine_stats_map: MachineInfoMap,
+    location: LocationEnum,
     occupancy: Optional[int] = None,
-    location: Optional[LocationEnum] = None,
 ) -> Dict[FuelTypeEnum, float]:
     """Get energy needs per day for a given machine
 
@@ -67,7 +69,7 @@ def get_energy_per_day(
     e_fuel_type = {}
 
     for machine_info in machine_infos:
-        e_daily = machine_info["kwh_per_day"]
+        e_daily = machine_info["per_location"][location]["kwh_per_day"]
         if e_daily is None:
             raise ValueError(f"Can not find kwh_per_day value for {machine_type}")
 
@@ -76,10 +78,6 @@ def get_energy_per_day(
             raise ValueError(f"Can not find fuel type value for {machine_type}")
 
         e_daily_scaled = scale_energy_by_occupancy(e_daily, occupancy)
-        e_daily_scaled = scale_energy_by_location(
-            machine_type, e_daily_scaled, location
-        )
-
         e_fuel_type[fuel_type] = e_daily_scaled
 
     return e_fuel_type
@@ -88,9 +86,9 @@ def get_energy_per_day(
 def get_energy_per_period(
     machine: MachineEnum,
     machine_info: MachineInfoMap,
+    location: LocationEnum,
     occupancy: Optional[int] = None,
     period: PeriodEnum = PeriodEnum.DAILY,
-    location: Optional[LocationEnum] = None,
 ) -> Dict[FuelTypeEnum, float]:
     """Calculates the energy needs of machines in given household over given period
 
@@ -104,7 +102,7 @@ def get_energy_per_period(
     Returns:
         Dict[FuelTypeEnum, float]: energy needs per fuel type of operating machine over given period in kWh
     """
-    e_daily = get_energy_per_day(machine, machine_info, occupancy, location)
+    e_daily = get_energy_per_day(machine, machine_info, location, occupancy)
     e_daily_scaled = {
         fuel_type: scale_daily_to_period(e, period) for fuel_type, e in e_daily.items()
     }
@@ -117,25 +115,35 @@ def get_total_appliance_energy(
     location: LocationEnum,
 ) -> Dict[FuelTypeEnum, float]:
 
-    space_heating_energy = get_energy_per_period(
-        household.space_heating,
-        SPACE_HEATING_INFO,
-        household.occupancy,
-        period,
-        location,
-    )
+    if household.space_heating == SpaceHeatingEnum.NONE:
+        space_heating_energy = {FuelTypeEnum.NONE: 0}
+
+    else:
+        space_heating_energy = get_energy_per_period(
+            household.space_heating,
+            SPACE_HEATING_INFO,
+            location,
+            household.occupancy,
+            period,
+        )
     water_heating_energy = get_energy_per_period(
         household.water_heating,
         WATER_HEATING_INFO,
+        location,
         household.occupancy,
         period,
-        location,
     )
     cooktop_energy = get_energy_per_period(
-        household.cooktop, COOKTOP_INFO, household.occupancy, period, location
+        household.cooktop,
+        COOKTOP_INFO,
+        location,
+        household.occupancy,
+        period,
     )
     energy_dict = {}
     for fuel in FuelTypeEnum:
+        if fuel == FuelTypeEnum.NONE: # Exclude none fuel type coming from "no space heating" option
+            continue
         # Exclude solar because the energy consumed from solar is calculated separately
         if fuel != FuelTypeEnum.SOLAR:
             energy_dict[fuel] = energy_dict.get(fuel, 0) + space_heating_energy.get(
@@ -148,7 +156,9 @@ def get_total_appliance_energy(
 
 
 def get_vehicle_energy(
-    vehicles: List[Vehicle], period: PeriodEnum = PeriodEnum.DAILY
+    vehicles: List[Vehicle],
+    location: LocationEnum,
+    period: PeriodEnum = PeriodEnum.DAILY,
 ) -> float:
     """Calculates the energy of a list of vehicles
 
@@ -164,10 +174,11 @@ def get_vehicle_energy(
         avg_e_daily = get_energy_per_day(
             vehicle.fuel_type,
             VEHICLE_INFO,
+            location,
         )
 
         # Weight the energy based on how much they use the vehicle compared to average
-        weighting_factor = vehicle.kms_per_week / VEHICLE_AVG_KMS_PER_WEEK
+        weighting_factor = vehicle.kms_per_week / VEHICLE_AVG_KMS_PER_WEEK[location]
         weighted_e_daily = {
             fuel_type: e * weighting_factor for fuel_type, e in avg_e_daily.items()
         }
@@ -184,6 +195,7 @@ def get_vehicle_energy(
 
 
 def get_other_appliances_energy_per_period(
+    location: LocationEnum,
     occupancy: Optional[int] = None,
     period: PeriodEnum = PeriodEnum.DAILY,
 ) -> Dict[FuelTypeEnum, float]:
@@ -200,7 +212,7 @@ def get_other_appliances_energy_per_period(
     """
     e_daily = {
         FuelTypeEnum.ELECTRICITY: scale_energy_by_occupancy(
-            ENERGY_NEEDS_OTHER_MACHINES_PER_DAY, occupancy
+            ENERGY_NEEDS_OTHER_MACHINES_PER_DAY[location]["kwh_per_day"], occupancy
         )
     }
     e_daily_scaled = {

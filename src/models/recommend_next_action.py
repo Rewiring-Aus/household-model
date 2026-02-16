@@ -13,12 +13,12 @@ from openapi_client.models.vehicle_fuel_type_enum import VehicleFuelTypeEnum
 
 
 NEXT_STEP_URLS = {
-    RecommendationActionEnum.SPACE_HEATING: "https://www.rewiring.nz/electrification-guides/space-heating-and-cooling",
-    RecommendationActionEnum.WATER_HEATING: "https://www.rewiring.nz/electrification-guides/water-heating",
-    RecommendationActionEnum.COOKING: "https://www.rewiring.nz/electrification-guides/cooktops",
-    RecommendationActionEnum.VEHICLE: "https://www.rewiring.nz/electrification-guides/electric-cars",
-    RecommendationActionEnum.SOLAR: "https://www.rewiring.nz/electrification-guides/solar",
-    RecommendationActionEnum.BATTERY: "https://www.rewiring.nz/electrification-guides/home-batteries",
+    RecommendationActionEnum.SPACE_HEATING: "https://www.rewiringaustralia.org/report/factsheet-for-space-heating",
+    RecommendationActionEnum.WATER_HEATING: "https://www.rewiringaustralia.org/report/factsheet-for-water-heating",
+    RecommendationActionEnum.COOKING: "https://www.rewiringaustralia.org/report/factsheet-for-cooktops",
+    RecommendationActionEnum.VEHICLE: "https://www.rewiringaustralia.org/report/factsheet-for-electric-vehicles",
+    RecommendationActionEnum.SOLAR: "https://www.rewiringaustralia.org/report/factsheet-for-solar",
+    RecommendationActionEnum.BATTERY: "https://www.rewiringaustralia.org/report/factsheet-for-home-batteries",
     RecommendationActionEnum.FULLY_ELECTRIFIED: None,
 }
 
