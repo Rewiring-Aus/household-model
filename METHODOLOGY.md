@@ -382,9 +382,9 @@ The upfront cost of installing solar is estimated at $950/kW using data from Sol
 
 ### 5.4 Batteries
 
-Battery upfront costs are modelled using a linear regression fitted to over 50 installer quotes from February 2025. The model captures a fixed cost component (installation, wiring, etc.) and a marginal cost per kWh of capacity:
+Battery upfront costs are modelled using a linear regression. The model captures a fixed cost component (inverter, installation, wiring, etc.) and a marginal cost per kWh of capacity. The calculation includes the discount from the Cheaper Home Batteries program as of February 2026.
 
-$\text{Battery cost} = \$2,668.68 + \$610.71 \times \text{capacity (kWh)}$
+Battery cost = $2,668.68 + $610.71 x capacity (kWh)
 
 ## 6 Recommendations
 
