@@ -14,7 +14,7 @@ Our modelling uses household and vehicle energy use data at a per machine level 
 
 For the given household inputs, we create a before & after state by "electrifying" the household. This means replacing appliances with the most efficient electric models.
 
-- Space heaters: everything except heat pumps are replaced with heat pumps. This includes electric resistive heaters, because the efficiency gains in upgrading to a heat pump are usually worth it.
+- Space heaters: everything except A/C is replaced with A/C. This includes electric resistive heaters, because the efficiency gains in upgrading to a heat pump are usually worth it.
 - Water heaters: fossil fuel models (gas and LPG) upgraded to electric water heat pumps.
 - Cooktops: fossil fuel models (gas and LPG) upgraded to electric induction cooktops.
 - Vehicles: if the household has indicated that they would like to switch to an EV, we will replace those specified vehicles with an EV.
@@ -31,7 +31,7 @@ We derive average household energy use across different appliances through the [
 
 #### 3.1.2 Space heating
 
-Space heating energy factors for all heater types except heat pumps are sourced from the [Warm Homes Technical Report](http://environment.govt.nz/assets/Publications/Files/warm-homes-heating-optionsphase1.pdf) published by the Ministry for the Environment in November 2005. Average heat pump energy use was calculated using a coefficient of performance of 4.08, sourced from [EECA sales & efficiency data](https://www.eeca.govt.nz/insights/eeca-insights/e3-programme-sales-and-efficiency-data/).
+Space heating energy factors for all heater types except heat pumps are calculated based on (this method is described in detail in our [Electrification Tipping Point Report 2025: p57](https://rewiringaustralia.org/report/the-electrification-tipping-point)). Average heat pump energy use was calculated using a coefficient of performance of 4.08.
 
 Average energy use per day (in kWh/day) for space heater types:
 
@@ -100,7 +100,7 @@ For other ubiquitous appliances around the home, we assume they are all electric
 
 Household energy consumption does not scale linearly with the number of occupants. Shared resources and economies of scale mean that additional occupants do not proportionally increase energy usage. For example, a 1-bedroom apartment with two people living in it does not have twice the energy consumption as one person living in it. The ratio is likely to be lower, as some of the energy needs are shared (e.g. heating the living room, cooking 1 meal that is shared). 
 
-Given that much of our energy consumption rates for each household appliances was based on averages from the Australian and New Zealand Residential Baseline Study 2021 (published November 2022), and given that the average New Zealand household has 2.7 occupants according to 2018 Census data ([Household size in New Zealand, Figure.NZ](https://figure.nz/chart/vdTbdOaKUE9zTKo3)), we needed to calculate a multiplier for the occupancy options given in the calculator.
+Given that much of our energy consumption rates for each household appliances was based on averages from the Australian and New Zealand Residential Baseline Study 2021 (published November 2022), and given that the average Australian household has 2.7 occupants according to 2021 Census data, we needed to calculate a multiplier for the occupancy options given in the calculator.
 
 #### 3.2.1 Data collection
 
@@ -175,7 +175,7 @@ Table 2: Scaling factors for energy consumption based on occupancy
 
 ### 3.3 Vehicles
 
-We derive average vehicle energy use through the [EECA Energy End Use Database](https://www.eeca.govt.nz/insights/data-tools/energy-end-use-database/) for 2019. We use data from 2019 for vehicles, as this is before COVID lockdowns and the database for vehicles had not been updated for 2022 onwards when our analysis was completed. The assumption made here is that New Zealanders drive similar amounts per year today as they did in 2019.
+We derive average vehicle energy use through the Australian Bureau of Statistics (ABS) [Survey of Motor Vehicle Use 2018](https://www.abs.gov.au/statistics/industry/tourism-and-transport/survey-motor-vehicle-use-australia/12-months-ended-30-june-2018) for 2018. We use data from 2018 for vehicles, as this is before COVID lockdowns and the database for vehicles has not been updated since 2020. The assumption made here is that Australians drive similar amounts per year today as they did in 2018.
 
 Energy use (in kWh/day) for different vehicle types:
 | Vehicle Type | OT  | NSW  | ACT  | NT   | QLD  | SA   | TAS  | VIC  | WA   |
@@ -186,7 +186,7 @@ Energy use (in kWh/day) for different vehicle types:
 
 Plug-in hybrids are assumed to be 60% petrol and 40% electric, while hybrids are considered to be 70% petrol and 30% electric.
 
-We scale this average energy use by each vehicle's stated usage. The average New Zealand car drives 10,950 km, rounded to 210 km per week, taken from 2019 stats on light passenger and light commercial vehicles from the [Ministry of Transport's Annual Fleet Statistics](https://www.transport.govt.nz/statistics-and-insights/fleet-statistics/annual-fleet-statistics/). 
+We scale this average energy use by each vehicle's stated usage. The average Australian car drives 13,000 km, rounded to 255 km per week, taken from 2018 stats on light passenger and light commercial vehicles from the ABS.
 
 |         | OT   | NSW  | ACT  | NT   | QLD  | SA   | TAS  | VIC  | WA   |
 | ------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -235,11 +235,11 @@ Where:
 - $\bar{D}_{15}$ is the average degraded performance of the battery over a 15 year product lifetime, calculated to be 85.22%
 - $L$ are the losses from the internal electronics & wiring of the battery, assumed to be 5%. In other words, we assume the round-trip efficiency is 95%.
 
-We assume that all the electricity stored in the battery is from solar. The model does not handle the scenario where there are batteries but no solar (we don't model arbitrage). The API does not accept households with a battery but no solar.
+We assume that all the electricity stored in the battery is from solar. The model does not handle the scenario where there are batteries but no solar (we don't model arbitrage).
 
 ## 4 Emissions
 
-To calculate emissions, we take the energy consumption from the various machines and their fuel types, and multiply these by the emissions factors. The emissions factors are taken from the Ministry for the Environment's [Measuring emissions: A guide for organisations (2023)](https://environment.govt.nz/assets/publications/Measuring-Emissions-Guidance_EmissionFactors_Summary_2023_ME1781.pdf).
+To calculate emissions, we take the energy consumption from the various machines and their fuel types, and multiply these by the emissions factors. The emissions factors are taken from Australia's [National Greenhouse Accounts](https://greenhouseaccounts.climatechange.gov.au/).
 
 | Emissions factors (kgCO₂e/kWh)         | OT | NSW  | ACT  | NT   | QLD  | SA   | TAS  | VIC  | WA   |
 | -------------------------- | --------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -259,7 +259,7 @@ To calculate emissions savings, we simply take the difference between the curren
 
 After calculating energy consumption across fuel types, we first calculate how much of the electricity need is met by solar, battery storage, or straight from the grid, and how much solar-generated electricity is left over for export. Then, we calculate the volume energy costs for each fuel type, including the various sources of electricity, using the appropriate pricing.
 
-We add the fixed costs (gas, LPG, or grid connections) and Road User Charges, and subtract the revenue from solar export. This gives the total operating costs for a given household. We take the difference between the total operating costs for the current and electrified household to get the savings.
+We add the fixed costs (gas, LPG, or grid connections) and subtract the revenue from solar export. This gives the total operating costs for a given household. We take the difference between the total operating costs for the current and electrified household to get the savings.
 
 ### 5.1 Solar self-consumption
 
@@ -267,7 +267,7 @@ How much a household is able to self-consume ($E_{self-consumed}$) from their ge
 
 We assume a self-consumption rate of 50% for appliance electricity needs, and 50% for vehicle electricity needs. This is based on the following assumptions:
 
-- Water heating, which is near a third of average household loads, can be moved almost entirely into the solar window in what is described as a “thermal battery”. This is similar to existing “ripple control” used in New Zealand electric water heaters to avoid peak electricity times.
+- Water heating, which is around a quarter of average household loads, can be moved almost entirely into the solar window in what is described as a "thermal battery". This is similar to existing "ripple control" used in Australian electric water heaters to avoid peak electricity times.
 - Other appliances, such as space heaters, can only be moved a small amount, with significant energy needs being met outside the solar window.
 - We consider this to be a conservative estimate of the load shifting possible by households. For example, with new electric vehicles having more range than a week or even two weeks of driving, households could choose to charge near 100% from solar on weekends or, if they are at home during sunlight hours, any time during the week.
 - The other electricity consumption is assumed at full grid electricity costs, which we also consider to be conservative as households often have access to low cost electric vehicle charging rates during off peak periods.
@@ -298,9 +298,9 @@ The energy needs remaining are whatever is left after solar self-consumption ($E
 
 From here, we can multiply the electricity and fuel consumed with their prices, as well as the energy exported with the solar export tariff. We also include the fixed costs of grid and gas/LPG connections. All houses remain connected to the grid, paying yearly grid connection fixed costs, but electrified homes no longer need to pay yearly fixed costs for gas connections.
 
-Our opex calculations for daily, weekly, and yearly savings use 2024 prices, while our lifetime savings use the average prices over 15 years. Energy prices for petrol, diesel, and natural gas, come from the average of the most recent four quarters of the [MBIE Energy Prices data](https://www.mbie.govt.nz/building-and-energy/energy-and-natural-resources/energystatistics-and-modelling/), based on 2024 New Zealand dollars. These prices are reconciled with a comparison of prices available to consumers from PowerSwitch provided by ConsumerNZ for May 2024. Where data is not provided (e.g. wood), an online comparison of prices is used. While MBIE provides combined residential gas fixed and volume costs in a combined rate, this is split into a lower cost volume rate, and a fixed yearly rate from natural gas offers available on PowerSwitch.
+Our opex calculations for daily, weekly, and yearly savings use 2025 prices, while our lifetime savings use the average prices over 15 years. Prices for petrol and diesel come from AIP data, and natural gas pricing is based on Australian Energy Regulator data, based on 2025 Australian dollars. Where data is not provided (e.g. wood), an online comparison of prices is used. While MBIE provides combined residential gas fixed and volume costs in a combined rate, this is split into a lower cost volume rate, and a fixed yearly rate from natural gas offers available on Energy Made Easy.
 
-We base the rate of inflation on the New Zealand CPI history from 2000 to 2024 at 2.56%. We set future product price base inflation at 2%. The real inflation rates used for energy are the nominal value minus the All CPI groups rate over the same period of 2.55% pa (All Groups CPI). The specific rate of inflation for each fuel type, alongside today's fixed & volume costs versus the average over the next 15 years, can be found in the table below. 
+We base the rate of inflation on Australia's CPI history from 2000 to 2024 at 2.81%. We set future product price base inflation at 2%. The real inflation rates used for energy are the nominal value minus the All CPI groups rate over the same period of 2.81% pa (All Groups CPI). The specific rate of inflation for each fuel type, alongside today's fixed & volume costs versus the average over the next 15 years, can be found in the table below. 
 
 Energy prices:
 
@@ -349,7 +349,7 @@ Energy prices:
 | -------------------- | ------- | ------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- |
 | Electricity          | $0.08   | $0.10   | $0.12    | $0.10    | $0.12    | $0.09    | $0.11    | $0.06    | $0.04    |
 
-The battery export feed-in-tariff is assumed to be the same as the solar feed-in-tariff. This is considered conservative, as the battery can feed in at peak times when electricity prices are significantly higher, and where some EDBs and retailers provide higher reward for peak feed-in. 
+The battery export feed-in-tariff is assumed to be the same as the solar feed-in-tariff. This is considered conservative, as the battery can feed in at peak times when electricity prices are significantly higher, and where some networks and retailers provide higher reward for peak feed-in. 
 
 > [!NOTE]
 > In order to take into account the impact of the battery, we use an adjusted grid price that reflects the proportion of electricity that could be purchased off peak. Please refer to the logic in [get_effective_grid_price()](src/savings/opex/calculate_opex.py) for more details.
@@ -361,28 +361,30 @@ The battery export feed-in-tariff is assumed to be the same as the solar feed-in
 
 Appliance replacement costs come from a comparison of over 100 different quotes for appliance costs, sourced both online and direct from installers. An average capital cost and average install cost is used for each individual appliance. The scope of the appliance cost comparison aims to compare products that are not the cheapest possible product, nor the most expensive, as appliance costs can vary significantly. The aim of the comparison was to create an assumed common cost for each option, in the middle of the cost spectrum. 
 
-Appliance installation specific costing is scarce, and we acknowledge the need for detailed work in the area of obtaining these “soft costs” or installation costs of devices. Installation costs also vary significantly between installers, creating further complexity. This model uses installation costs that are the result of real quotes from both online and direct installer but A detailed analysis of the impact of different household conditions and installation costs across different appliances would be valuable for emissions reduction and energy system planning in New Zealand.  
+Appliance installation specific costing is scarce, and we acknowledge the need for detailed work in the area of obtaining these "soft costs" or installation costs of devices. Installation costs also vary significantly between installers, creating further complexity. This model uses installation costs that are the result of real quotes from both online and direct installers.
    
 The following appliance price and installation cost are assumed:
 
 
 | Appliance     | Fuel type                   | Item price ($) | Install cost ($) |
 |---------------|-----------------------------|----------------|------------------|
-| Space heater  | Electricity (heat pump)     | 1700           | 900             |
-| Water heater  | Electricity (heat pump)     | 3000           | 0             |
-| Cooktop       | Electricity (induction)     | 1400           | 600             |
+| Space heater  | Electricity (heat pump)     | 2600           | 900             |
+| Water heater  | Electricity (heat pump)     | 3500           | 1000            |
+| Cooktop       | Electricity (induction)     | 2000           | 1200            |
 
 ### 5.2 Vehicles
 
-The model does not provide upfront costs for vehicles, although the calculator app provides a general range to give an indication of replacing fossil fuel vehicles with EVs. The range is based on a comparison of popular New Zealand petrol vehicles and their prices, compared to a similar EV option and its price, using pricing data from vehicle manufacturer websites accessed in August 2024. Clean car rebate is not included as it was phased out in 2024. 
+The model does not provide upfront costs for vehicles, although the calculator app provides a general range to give an indication of replacing fossil fuel vehicles with EVs. The range is based on a comparison of popular Australian petrol vehicles and their prices, compared to a similar EV option and its price, using pricing data from vehicle manufacturer websites accessed in August 2024.
 
 ### 5.3 Solar
 
-The upfront cost of installing solar is estimated at $2277.78/kW using a combination of 2023 data from the Sustainable Energy Association of New Zealand (SEANZ) and direct surveys from installers. This is essentially $2000/kW plus the cost of an inverter which lasts 15 years.  Inverter replacement costs are assumed at $2,500. 
+The upfront cost of installing solar is estimated at $950/kW using data from Solar Choice. This is essentially $800/kW plus the cost of an inverter which lasts 15 years. Inverter replacement costs are assumed at $2,500.
 
 ### 5.4 Batteries
 
-Battery upfront costs are assumed at $1000/kWh, from multiple surveys of 2023 installation costs in New Zealand direct from battery installers, in addition to comparison of available online prices for batteries in New Zealand.
+Battery upfront costs are modelled using a linear regression fitted to over 50 installer quotes from February 2025. The model captures a fixed cost component (installation, wiring, etc.) and a marginal cost per kWh of capacity:
+
+$\text{Battery cost} = \$2,668.68 + \$610.71 \times \text{capacity (kWh)}$
 
 ## 6 Recommendations
 

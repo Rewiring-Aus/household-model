@@ -6,4 +6,5 @@ BATTERY_AVG_DEGRADED_PERFORMANCE_15_YRS = 0.667
 # % of capacity that is lost to the electronics & wiring within the battery
 BATTERY_LOSSES = 0.05
 
-BATTERY_COST_PER_KWH = 1100
+BATTERY_COST_INTERCEPT = 2668.68
+BATTERY_COST_PER_KWH = 610.71

@@ -13,7 +13,7 @@ from openapi_client.models.solar import Solar
 from openapi_client.models.space_heating_enum import SpaceHeatingEnum
 from openapi_client.models.water_heating_enum import WaterHeatingEnum
 from constants.solar import SOLAR_COST_PER_KW
-from constants.battery import BATTERY_COST_PER_KWH
+from constants.battery import BATTERY_COST_INTERCEPT, BATTERY_COST_PER_KWH
 
 
 def get_solar_upfront_cost(current: Solar, location: LocationEnum) -> float:
@@ -24,7 +24,7 @@ def get_solar_upfront_cost(current: Solar, location: LocationEnum) -> float:
 
 def get_battery_upfront_cost(current: Battery) -> float:
     if should_install(current):
-        return round(BATTERY_COST_PER_KWH * current.capacity, 2)
+        return round(BATTERY_COST_INTERCEPT + BATTERY_COST_PER_KWH * current.capacity, 2)
     return 0
 
 

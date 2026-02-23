@@ -39,7 +39,7 @@ class TestGetBatteryUpfrontCost(TestCase):
     def test_it_gets_battery_upfront_cost_if_should_install(self, mock_should_install):
         mock_should_install.side_effect = [True]
         assert get_battery_upfront_cost(self.mock_battery) == round(
-            1000 * self.mock_battery_capacity, 2
+            2668.68 + 610.71 * self.mock_battery_capacity, 2
         )
 
     def test_it_returns_zero_if_should_not_install_battery(self, mock_should_install):
